@@ -23,7 +23,7 @@ function DeleteAccount({ user }: { user: User }) {
     try {
       const idToken = await user.getIdToken();
       const apiBase = process.env.NEXT_PUBLIC_NOXA_FUNCTIONS_URL
-        ?? 'https://asia-northeast1-minami-bar-guide.cloudfunctions.net';
+        ?? 'https://asia-northeast1-noxa-platform.cloudfunctions.net';
       const res = await fetch(`${apiBase}/deleteNoxaAccount`, {
         method: 'POST',
         headers: { Authorization: `Bearer ${idToken}` },
