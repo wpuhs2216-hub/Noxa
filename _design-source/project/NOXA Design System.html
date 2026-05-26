@@ -1,0 +1,142 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8" />
+<title>NOXA — Design System</title>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link rel="stylesheet" href="colors_and_type.css" />
+<style>
+  html, body { margin: 0; padding: 0; background: #f0eee9; }
+  * { box-sizing: border-box; }
+</style>
+
+<script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
+</head>
+<body>
+<div id="root"></div>
+
+<script type="text/babel" src="design-canvas.jsx"></script>
+<script type="text/babel" src="tokens-cards.jsx"></script>
+<script type="text/babel" src="component-cards.jsx"></script>
+<script type="text/babel" src="page-previews.jsx"></script>
+
+<script type="text/babel" data-presets="react">
+function CoverCard() {
+  return (
+    <div className="noxa-root" style={{
+      width: '100%', height: '100%', background: '#0B0710', position: 'relative', overflow: 'hidden',
+      padding: 56, display: 'flex', flexDirection: 'column', justifyContent: 'space-between',
+    }}>
+      <div style={{ position: 'absolute', top: '-20%', right: '-10%', width: 600, height: 600, background: 'radial-gradient(circle, rgba(124, 58, 237,0.22) 0%, transparent 60%)', pointerEvents: 'none' }} />
+      <div style={{ position: 'absolute', bottom: '-15%', left: '-10%', width: 500, height: 500, background: 'radial-gradient(circle, rgba(212,178,122,0.10) 0%, transparent 70%)', pointerEvents: 'none' }} />
+
+      <div style={{ position: 'relative', display: 'flex', alignItems: 'baseline', gap: 18 }}>
+        <div className="noxa-eyebrow">Design System · v1.0 · May 2026</div>
+        <div style={{ flex: 1, height: 1, background: 'rgba(167, 139, 250, 0.22)' }} />
+      </div>
+
+      <div style={{ position: 'relative' }}>
+        <div style={{ fontFamily: 'var(--noxa-font-display-en)', fontSize: 200, lineHeight: 0.92, color: '#F5F1FA', letterSpacing: '-0.02em', fontWeight: 500 }}>
+          N<span style={{ color: '#A78BFA' }}>O</span>XA
+        </div>
+        <div style={{ fontFamily: 'var(--noxa-font-display-jp)', fontSize: 36, color: '#F5F1FA', marginTop: 24, fontWeight: 400, letterSpacing: '0.04em' }}>
+          夜の街のための、<span style={{ color: '#A78BFA' }}>統合プラットフォーム</span>
+        </div>
+        <div style={{ fontFamily: 'var(--noxa-font-display-en)', fontSize: 22, color: '#9C92AB', marginTop: 12, fontStyle: 'italic', fontWeight: 400 }}>
+          nox <span style={{ color: '#645A75' }}>(L. night)</span> + a — refined.
+        </div>
+      </div>
+
+      <div style={{ position: 'relative', display: 'flex', alignItems: 'flex-end', justifyContent: 'space-between', gap: 32 }}>
+        <div style={{ display: 'flex', gap: 40 }}>
+          {[
+            { k: 'yorulog',   t: '夜職売上CRM',    c: '#7C3AED' },
+            { k: 'nomishugy', t: '大阪バーポータル', c: '#A78BFA' },
+            { k: 'community', t: '交流掲示板',     c: '#C4384A' },
+          ].map((p) => (
+            <div key={p.k} style={{ display: 'flex', flexDirection: 'column', gap: 6 }}>
+              <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
+                <span style={{ width: 8, height: 8, borderRadius: 4, background: p.c }} />
+                <span style={{ fontFamily: 'var(--noxa-font-mono)', fontSize: 12, color: '#F5F1FA', letterSpacing: 0.04 }}>{p.k}</span>
+              </div>
+              <span style={{ fontFamily: 'var(--noxa-font-sans-jp)', fontSize: 11, color: '#9C92AB' }}>{p.t}</span>
+            </div>
+          ))}
+        </div>
+        <div style={{ color: '#645A75', fontSize: 11, fontFamily: 'var(--noxa-font-mono)', letterSpacing: 0.04, textAlign: 'right' }}>
+          Tokens · Components · Sample pages<br />
+          Pan to explore · scroll to zoom
+        </div>
+      </div>
+    </div>
+  );
+}
+
+function App() {
+  return (
+    <DesignCanvas>
+      <DCSection id="cover" title="NOXA" subtitle="夜の街のための統合プラットフォーム — Design System">
+        <DCArtboard id="cover" label="Cover" width={1200} height={720}>
+          <CoverCard />
+        </DCArtboard>
+      </DCSection>
+
+      <DCSection id="colors" title="01 · Colors" subtitle="ダークモード優先。妖艶で洗練 — ネオンではなく、夜の静けさ。">
+        <DCArtboard id="bg"      label="Background" width={520} height={300}><ColorsBackground /></DCArtboard>
+        <DCArtboard id="surface" label="Surface"    width={520} height={300}><ColorsSurface /></DCArtboard>
+        <DCArtboard id="accent"  label="Accent"     width={520} height={300}><ColorsAccent /></DCArtboard>
+        <DCArtboard id="violet-hierarchy" label="Violet hierarchy" width={760} height={320}><ColorsVioletHierarchy /></DCArtboard>
+        <DCArtboard id="text"    label="Text"       width={520} height={300}><ColorsText /></DCArtboard>
+        <DCArtboard id="border"  label="Border & Divider" width={520} height={300}><ColorsBorder /></DCArtboard>
+        <DCArtboard id="family"  label="Sub-brand tints"  width={520} height={320}><ColorsFamilyTints /></DCArtboard>
+      </DCSection>
+
+      <DCSection id="type" title="02 · Typography" subtitle="Cormorant Garamond + Shippori Mincho B1 — 編集的で品のあるディスプレイ。Geist + Noto Sans JP で読みやすい本文。">
+        <DCArtboard id="display"  label="Display"  width={620} height={360}><TypeDisplay /></DCArtboard>
+        <DCArtboard id="headings" label="Headings" width={620} height={380}><TypeHeadings /></DCArtboard>
+        <DCArtboard id="body"     label="Body / Caption / Mono" width={620} height={360}><TypeBody /></DCArtboard>
+      </DCSection>
+
+      <DCSection id="layout" title="03 · Spacing · Radius · Motion" subtitle="4pxベース。控えめなコーナー、最小限のイージング。">
+        <DCArtboard id="space"  label="Spacing 4px base" width={520} height={360}><SpacingScale /></DCArtboard>
+        <DCArtboard id="radius" label="Radius"  width={520} height={260}><RadiusScale /></DCArtboard>
+        <DCArtboard id="motion" label="Motion"  width={620} height={320}><MotionCard /></DCArtboard>
+      </DCSection>
+
+      <DCSection id="buttons" title="04 · Buttons" subtitle="Primary は violet、Secondary は violet-hairline、Ghost は控えめ、Destructive は wine。">
+        <DCArtboard id="primary"   label="Primary"   width={720} height={260}><ButtonsPrimary /></DCArtboard>
+        <DCArtboard id="secondary" label="Secondary" width={720} height={260}><ButtonsSecondary /></DCArtboard>
+        <DCArtboard id="ghost-destruct" label="Ghost & Destructive" width={720} height={300}><ButtonsGhostDestructive /></DCArtboard>
+      </DCSection>
+
+      <DCSection id="forms" title="05 · Inputs & Form" subtitle="Focus は violet glow、Error は wine。disabled は彩度を落とす。">
+        <DCArtboard id="inputs" label="Input states" width={720} height={420}><Inputs /></DCArtboard>
+      </DCSection>
+
+      <DCSection id="components" title="06 · Components" subtitle="Card · Badge · Avatar · Nav — 夜の質感を、控えめな素材で。">
+        <DCArtboard id="cards"   label="Card"   width={720} height={380}><Cards /></DCArtboard>
+        <DCArtboard id="badges"  label="Badge"  width={620} height={300}><Badges /></DCArtboard>
+        <DCArtboard id="avatars" label="Avatar" width={620} height={280}><Avatars /></DCArtboard>
+        <DCArtboard id="nav"     label="Nav Header" width={820} height={280}><NavHeader /></DCArtboard>
+      </DCSection>
+
+      <DCSection id="overlay" title="07 · Overlay" subtitle="Dialog は frosted overlay + 中央配置。Toast は左端に細い色アクセント。">
+        <DCArtboard id="dialog" label="Dialog / Modal" width={520} height={420}><Dialog /></DCArtboard>
+        <DCArtboard id="toasts" label="Toast"           width={520} height={320}><Toasts /></DCArtboard>
+      </DCSection>
+
+      <DCSection id="preview" title="08 · Sample Pages" subtitle="LP · ログイン · アカウントダッシュボード。実機サイズに近いプレビュー。">
+        <DCArtboard id="lp"        label="Landing Page"      width={1280} height={1100}><LandingPage /></DCArtboard>
+        <DCArtboard id="login"     label="Login"             width={1280} height={820}><LoginPage /></DCArtboard>
+        <DCArtboard id="dashboard" label="Account Dashboard" width={1280} height={900}><DashboardPage /></DCArtboard>
+      </DCSection>
+    </DesignCanvas>
+  );
+}
+
+ReactDOM.createRoot(document.getElementById('root')).render(<App />);
+</script>
+</body>
+</html>

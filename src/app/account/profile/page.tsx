@@ -1,9 +1,9 @@
 'use client';
 import { useState, useEffect } from 'react';
-import Link from 'next/link';
 import { doc, getDoc, setDoc, serverTimestamp } from 'firebase/firestore';
 import { updateProfile } from 'firebase/auth';
 import { AuthGuard } from '@/components/AuthGuard';
+import { AccountShell } from '@/components/AccountShell';
 import { db } from '@/lib/firebase/config';
 import type { User } from 'firebase/auth';
 
@@ -27,10 +27,11 @@ function ProfileEditor({ user }: { user: User }) {
     setSaving(true);
     try {
       await updateProfile(user, { displayName });
-      await setDoc(doc(db, `account_users/${user.uid}`), {
-        displayName,
-        updatedAt: serverTimestamp(),
-      }, { merge: true });
+      await setDoc(
+        doc(db, `account_users/${user.uid}`),
+        { displayName, updatedAt: serverTimestamp() },
+        { merge: true },
+      );
       setSaved(true);
       setTimeout(() => setSaved(false), 2000);
     } finally {
@@ -39,38 +40,42 @@ function ProfileEditor({ user }: { user: User }) {
   }
 
   return (
-    <main className="mx-auto max-w-2xl px-6 py-10">
-      <Link href="/account" className="mb-6 inline-block text-sm text-zinc-400 hover:text-zinc-200">← NOXA Account</Link>
-      <h1 className="mb-8 text-2xl font-bold">プロフィール</h1>
+    <AccountShell user={user}>
+      <div className="noxa-eyebrow" style={{ marginBottom: 10 }}>Account · Profile</div>
+      <h1 className="noxa-h1" style={{ margin: '0 0 32px' }}>プロフィール</h1>
 
-      <div className="space-y-5 rounded-2xl border border-zinc-800 bg-zinc-950 p-6">
+      <div className="noxa-card" style={{ maxWidth: 640, display: 'flex', flexDirection: 'column', gap: 20 }}>
         <div>
-          <label className="mb-2 block text-xs text-zinc-400">表示名</label>
+          <label className="noxa-label" htmlFor="displayName">表示名</label>
           <input
+            id="displayName"
             type="text"
+            className="noxa-input"
             value={displayName}
             onChange={(e) => setDisplayName(e.target.value)}
-            className="w-full rounded-lg border border-zinc-700 bg-zinc-900 px-4 py-3 text-sm focus:border-violet-500 focus:outline-none"
+            placeholder="例: 凛"
           />
         </div>
         <div>
-          <label className="mb-2 block text-xs text-zinc-400">メールアドレス（変更不可）</label>
+          <label className="noxa-label" htmlFor="email">メールアドレス（変更不可）</label>
           <input
+            id="email"
             type="email"
+            className="noxa-input"
             value={user.email ?? ''}
             disabled
-            className="w-full rounded-lg border border-zinc-800 bg-zinc-900/50 px-4 py-3 text-sm text-zinc-500"
           />
         </div>
         <button
           onClick={save}
           disabled={saving}
-          className="rounded-lg bg-white px-6 py-2.5 text-sm font-medium text-black transition hover:bg-zinc-200 disabled:opacity-50"
+          className="noxa-btn noxa-btn-primary"
+          style={{ padding: '12px 24px', fontSize: 14, alignSelf: 'flex-start' }}
         >
           {saving ? '保存中…' : saved ? '保存しました ✓' : '保存'}
         </button>
       </div>
-    </main>
+    </AccountShell>
   );
 }
 

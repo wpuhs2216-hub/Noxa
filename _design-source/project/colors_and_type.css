@@ -1,0 +1,113 @@
+/* ──────────────────────────────────────────────
+   NOXA Design System — Tokens
+   nox（夜・闇）+ a — 夜の街のための統合プラットフォーム
+   ────────────────────────────────────────────── */
+
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Shippori+Mincho+B1:wght@400;500;600;700&family=Noto+Sans+JP:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Geist:wght@300;400;500;600;700&display=swap');
+
+:root {
+  /* Color — Background */
+  --noxa-bg-base:      #0B0710;  /* deep wine-tinted obsidian */
+  --noxa-bg-elevated:  #14101C;
+  --noxa-bg-overlay:   rgba(11, 7, 16, 0.72);
+
+  /* Color — Surface */
+  --noxa-surface-card:  #1A1424;
+  --noxa-surface-muted: #221B2E;
+  --noxa-surface-hover: #2A2237;
+
+  /* Color — Accent */
+  /* Violet depth hierarchy — single hue, multi-luminance */
+  --noxa-accent-primary:       #7C3AED;  /* canonical violet — same as yorulog */
+  --noxa-accent-primary-ink:   #A78BFA;  /* lavender 400 — text-on-dark, eyebrow, logo O */
+  --noxa-accent-primary-faint: #C4B5FD;  /* lavender 200 — pale accent, soft fill */
+  --noxa-accent-primary-press: #5B21B6;  /* pressed state */
+  --noxa-accent-primary-deep:  #4C1D95;  /* violet 900 — low-contrast strokes, gradient anchor */
+  --noxa-accent-destructive:   #C4384A;  /* wine red — never fire engine */
+
+  /* Color — Text */
+  --noxa-text-primary: #F5F1FA;
+  --noxa-text-muted:   #9C92AB;
+  --noxa-text-faint:   #645A75;
+  --noxa-text-inverse: #0B0710;
+
+  /* Color — Border / Divider */
+  --noxa-border:        #2A2237;
+  --noxa-border-strong: #3A314A;
+  --noxa-divider:       rgba(167, 139, 250, 0.16);  /* violet hairline */
+
+  /* Family tints — for sub-brand contexts */
+  --yorulog-tint:    #7C3AED;  /* canonical violet */
+  --nomishugy-tint:  #A78BFA;  /* lavender — lighter, friendlier */
+  --community-tint:  #C4384A;  /* wine */
+
+  /* Type — Family */
+  --noxa-font-display-en: 'Cormorant Garamond', 'Shippori Mincho B1', serif;
+  --noxa-font-display-jp: 'Shippori Mincho B1', 'Cormorant Garamond', serif;
+  --noxa-font-sans:       'Geist', 'Noto Sans JP', system-ui, sans-serif;
+  --noxa-font-sans-jp:    'Noto Sans JP', 'Geist', system-ui, sans-serif;
+  --noxa-font-mono:       'JetBrains Mono', ui-monospace, monospace;
+
+  /* Type — Scale (size / line-height / weight) */
+  --noxa-display-size:   56px; --noxa-display-lh:  1.08; --noxa-display-weight: 500;
+  --noxa-h1-size:        40px; --noxa-h1-lh:       1.15; --noxa-h1-weight:      500;
+  --noxa-h2-size:        28px; --noxa-h2-lh:       1.25; --noxa-h2-weight:      500;
+  --noxa-h3-size:        20px; --noxa-h3-lh:       1.35; --noxa-h3-weight:      600;
+  --noxa-body-size:      15px; --noxa-body-lh:     1.6;  --noxa-body-weight:    400;
+  --noxa-caption-size:   13px; --noxa-caption-lh:  1.45; --noxa-caption-weight: 500;
+  --noxa-mono-size:      13px; --noxa-mono-lh:     1.5;  --noxa-mono-weight:    400;
+
+  /* Spacing — 4px base */
+  --noxa-space-0:  0;
+  --noxa-space-1:  4px;
+  --noxa-space-2:  8px;
+  --noxa-space-3:  12px;
+  --noxa-space-4:  16px;
+  --noxa-space-6:  24px;
+  --noxa-space-8:  32px;
+  --noxa-space-12: 48px;
+  --noxa-space-16: 64px;
+  --noxa-space-24: 96px;
+
+  /* Radius */
+  --noxa-radius-sm:  4px;
+  --noxa-radius-md:  10px;
+  --noxa-radius-lg:  18px;
+  --noxa-radius-pill: 9999px;
+
+  /* Motion */
+  --noxa-duration-fast: 150ms;
+  --noxa-duration-base: 250ms;
+  --noxa-duration-slow: 400ms;
+  --noxa-ease-standard: cubic-bezier(0.4, 0.0, 0.2, 1);
+  --noxa-ease-enter:    cubic-bezier(0.0, 0.0, 0.2, 1);
+  --noxa-ease-exit:     cubic-bezier(0.4, 0.0, 1, 1);
+  --noxa-ease-emphasized: cubic-bezier(0.2, 0.7, 0.1, 1);
+
+  /* Shadow */
+  --noxa-shadow-sm: 0 1px 2px rgba(0,0,0,0.5);
+  --noxa-shadow-md: 0 6px 24px rgba(0,0,0,0.45), 0 1px 2px rgba(0,0,0,0.4);
+  --noxa-shadow-lg: 0 24px 60px rgba(0,0,0,0.6), 0 2px 6px rgba(0,0,0,0.4);
+  --noxa-shadow-glow: 0 0 0 1px rgba(124, 58, 237, 0.32), 0 8px 32px rgba(124, 58, 237, 0.18);
+}
+
+/* Semantic resets used inside artboards / preview pages */
+.noxa-root {
+  background: var(--noxa-bg-base);
+  color: var(--noxa-text-primary);
+  font-family: var(--noxa-font-sans);
+  font-size: var(--noxa-body-size);
+  line-height: var(--noxa-body-lh);
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+.noxa-display { font-family: var(--noxa-font-display-en); font-size: var(--noxa-display-size); line-height: var(--noxa-display-lh); font-weight: var(--noxa-display-weight); letter-spacing: -0.02em; }
+.noxa-display-jp { font-family: var(--noxa-font-display-jp); font-size: var(--noxa-display-size); line-height: var(--noxa-display-lh); font-weight: var(--noxa-display-weight); letter-spacing: 0.02em; }
+.noxa-h1 { font-family: var(--noxa-font-display-en); font-size: var(--noxa-h1-size); line-height: var(--noxa-h1-lh); font-weight: var(--noxa-h1-weight); letter-spacing: -0.01em; }
+.noxa-h2 { font-family: var(--noxa-font-sans); font-size: var(--noxa-h2-size); line-height: var(--noxa-h2-lh); font-weight: var(--noxa-h2-weight); letter-spacing: -0.005em; }
+.noxa-h3 { font-family: var(--noxa-font-sans); font-size: var(--noxa-h3-size); line-height: var(--noxa-h3-lh); font-weight: var(--noxa-h3-weight); }
+.noxa-body { font-family: var(--noxa-font-sans); font-size: var(--noxa-body-size); line-height: var(--noxa-body-lh); font-weight: var(--noxa-body-weight); }
+.noxa-caption { font-family: var(--noxa-font-sans); font-size: var(--noxa-caption-size); line-height: var(--noxa-caption-lh); font-weight: var(--noxa-caption-weight); color: var(--noxa-text-muted); }
+.noxa-mono { font-family: var(--noxa-font-mono); font-size: var(--noxa-mono-size); line-height: var(--noxa-mono-lh); letter-spacing: -0.01em; }
+.noxa-eyebrow { font-family: var(--noxa-font-mono); font-size: 11px; line-height: 1.2; letter-spacing: 0.18em; text-transform: uppercase; color: var(--noxa-accent-primary-ink); }

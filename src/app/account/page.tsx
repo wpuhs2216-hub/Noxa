@@ -3,17 +3,47 @@ import Link from 'next/link';
 import { useState, useEffect } from 'react';
 import { doc, getDoc } from 'firebase/firestore';
 import { AuthGuard } from '@/components/AuthGuard';
-import { signOut } from '@/lib/auth';
+import { AccountShell } from '@/components/AccountShell';
 import { db } from '@/lib/firebase/config';
 import type { User } from 'firebase/auth';
 
 interface Sub {
   planTier: string;
+  status?: string;
   aiCreditsTotal: number;
   aiCreditsUsed?: number;
+  currentPeriodEnd?: { seconds: number } | null;
 }
 
-function AccountHub({ user }: { user: User }) {
+const SERVICES = [
+  {
+    name: 'yorulog',
+    tag: '夜職売上 CRM',
+    url: 'https://yorulog.vercel.app',
+    tint: '#7C3AED',
+    status: '営業中',
+    statusColor: '#7BE8A1',
+  },
+  {
+    name: 'nomishugy',
+    tag: '大阪バーポータル',
+    url: 'https://nomishugy.vercel.app',
+    tint: '#A78BFA',
+    status: 'アクティブ',
+    statusColor: '#7BE8A1',
+  },
+  {
+    name: 'community',
+    tag: '交流掲示板',
+    url: '/community',
+    tint: '#C4384A',
+    status: '近日公開',
+    statusColor: '#9C92AB',
+    soon: true,
+  },
+];
+
+function AccountDashboard({ user }: { user: User }) {
   const [sub, setSub] = useState<Sub | null>(null);
 
   useEffect(() => {
@@ -23,78 +53,262 @@ function AccountHub({ user }: { user: User }) {
     })();
   }, [user.uid]);
 
-  return (
-    <main className="mx-auto max-w-3xl px-6 py-10">
-      <header className="mb-10 flex items-center justify-between">
-        <Link href="/" className="text-2xl font-black tracking-tight">NOXA</Link>
-        <button
-          onClick={async () => { await signOut(); window.location.href = '/'; }}
-          className="text-sm text-zinc-400 hover:text-zinc-200"
-        >
-          ログアウト
-        </button>
-      </header>
+  const planTier = sub?.planTier ?? 'free';
+  const planLabel = planTier === 'free' ? 'NOXA Free' : `NOXA ${planTier.charAt(0).toUpperCase()}${planTier.slice(1)}`;
+  const totalCredits = sub?.aiCreditsTotal ?? 0;
+  const usedCredits = sub?.aiCreditsUsed ?? 0;
+  const remainingCredits = totalCredits - usedCredits;
+  const usagePct = totalCredits > 0 ? Math.min(100, Math.max(0, (remainingCredits / totalCredits) * 100)) : 0;
+  const displayName = user.displayName ?? (user.email?.split('@')[0] ?? 'NOXA ユーザー');
 
-      <section className="mb-8 rounded-2xl border border-zinc-800 bg-zinc-950 p-6">
-        <div className="mb-4 flex items-center gap-4">
-          {user.photoURL && (
-            // eslint-disable-next-line @next/next/no-img-element
-            <img src={user.photoURL} alt="" className="size-12 rounded-full" />
-          )}
-          <div>
-            <div className="text-lg font-bold">{user.displayName ?? 'NOXA ユーザー'}</div>
-            <div className="text-xs text-zinc-500">{user.email}</div>
-          </div>
-        </div>
-        <div className="grid gap-3 sm:grid-cols-2">
-          <div className="rounded-lg border border-zinc-800 bg-zinc-900 p-4">
-            <div className="text-xs text-zinc-500">プラン</div>
-            <div className="text-xl font-bold capitalize">{sub?.planTier ?? 'free'}</div>
-          </div>
-          <div className="rounded-lg border border-zinc-800 bg-zinc-900 p-4">
-            <div className="text-xs text-zinc-500">AI クレジット残高</div>
-            <div className="text-xl font-bold">
-              {sub ? `${(sub.aiCreditsTotal ?? 0) - (sub.aiCreditsUsed ?? 0)} / ${sub.aiCreditsTotal ?? 0}` : '–'}
+  return (
+    <AccountShell user={user}>
+      <div className="noxa-eyebrow" style={{ marginBottom: 10 }}>Account</div>
+      <div className="flex items-baseline justify-between flex-wrap gap-3" style={{ marginBottom: 32 }}>
+        <h1
+          className="noxa-h1"
+          style={{ margin: 0 }}
+        >
+          こんばんは、
+          <span
+            style={{
+              color: 'var(--noxa-accent-primary-ink)',
+              fontFamily: 'var(--noxa-font-display-jp)',
+            }}
+          >
+            {displayName}
+          </span>{' '}
+          さん
+        </h1>
+        <Link
+          href="/account/profile"
+          className="noxa-btn noxa-btn-secondary"
+          style={{ padding: '10px 16px', fontSize: 13 }}
+        >
+          設定 →
+        </Link>
+      </div>
+
+      {/* Plan + Credits */}
+      <div className="grid gap-5" style={{ gridTemplateColumns: 'minmax(0, 1.4fr) minmax(0, 1fr)', marginBottom: 32 }}>
+        {/* Plan card */}
+        <div
+          className="relative overflow-hidden"
+          style={{
+            background: 'linear-gradient(135deg, #1A1424 0%, #221B2E 100%)',
+            border: '1px solid var(--noxa-border)',
+            borderRadius: 'var(--noxa-radius-lg)',
+            padding: 28,
+          }}
+        >
+          <div
+            aria-hidden
+            style={{
+              position: 'absolute', top: -60, right: -60,
+              width: 240, height: 240,
+              background: 'radial-gradient(circle, rgba(124, 58, 237, 0.22) 0%, transparent 60%)',
+            }}
+          />
+          <div className="relative">
+            <div className="noxa-eyebrow" style={{ marginBottom: 10 }}>Current plan</div>
+            <div className="flex items-baseline gap-3.5 flex-wrap" style={{ marginBottom: 6 }}>
+              <span
+                style={{
+                  fontFamily: 'var(--noxa-font-display-en)',
+                  fontSize: 36,
+                  color: 'var(--noxa-text-primary)',
+                  fontWeight: 500,
+                }}
+              >
+                {planLabel}
+              </span>
+              {planTier !== 'free' && (
+                <span
+                  style={{
+                    padding: '3px 9px',
+                    background: 'rgba(167, 139, 250, 0.22)',
+                    color: 'var(--noxa-accent-primary-faint)',
+                    borderRadius: 9999,
+                    fontSize: 11,
+                    fontWeight: 600,
+                    letterSpacing: '0.04em',
+                  }}
+                >
+                  ACTIVE
+                </span>
+              )}
+            </div>
+            {sub?.currentPeriodEnd && (
+              <div style={{ color: 'var(--noxa-text-muted)', fontSize: 13, marginBottom: 22 }}>
+                次回更新 {new Date(sub.currentPeriodEnd.seconds * 1000).toLocaleDateString('ja-JP')}
+              </div>
+            )}
+            <div className="noxa-hairline" style={{ marginBottom: 16 }} />
+            <div
+              className="flex gap-5 flex-wrap"
+              style={{ fontSize: 12, color: 'var(--noxa-text-muted)' }}
+            >
+              <span><span style={{ color: '#7BE8A1' }}>●</span> yorulog 連携</span>
+              <span><span style={{ color: '#7BE8A1' }}>●</span> nomishugy 連携</span>
+              <span><span style={{ color: 'var(--noxa-accent-primary-ink)' }}>●</span> Community 早期アクセス</span>
             </div>
           </div>
         </div>
-      </section>
 
-      <section className="mb-8">
-        <h2 className="mb-3 text-sm font-bold uppercase tracking-wide text-zinc-500">サービスを開く</h2>
-        <div className="grid gap-3 sm:grid-cols-2">
-          <Link href="https://yorulog.vercel.app" target="_blank" className="rounded-xl border border-zinc-800 bg-gradient-to-br from-violet-500/30 to-fuchsia-500/10 p-4 transition hover:border-zinc-600">
-            <div className="font-bold">yorulog</div>
-            <div className="text-xs text-zinc-400">夜職向け CRM</div>
-          </Link>
-          <Link href="https://nomishugy.vercel.app" target="_blank" className="rounded-xl border border-zinc-800 bg-gradient-to-br from-amber-500/30 to-rose-500/10 p-4 transition hover:border-zinc-600">
-            <div className="font-bold">nomishugy</div>
-            <div className="text-xs text-zinc-400">バー検索・飲み仲間・求人</div>
+        {/* Credits card */}
+        <div
+          className="flex flex-col"
+          style={{
+            background: 'var(--noxa-surface-card)',
+            border: '1px solid var(--noxa-border)',
+            borderRadius: 'var(--noxa-radius-lg)',
+            padding: 28,
+            gap: 14,
+          }}
+        >
+          <div className="noxa-eyebrow">Credits</div>
+          <div className="flex items-baseline gap-1.5">
+            <span
+              style={{
+                fontFamily: 'var(--noxa-font-display-en)',
+                fontSize: 48,
+                color: 'var(--noxa-accent-primary-ink)',
+                fontWeight: 500,
+                lineHeight: 1,
+              }}
+            >
+              {remainingCredits.toLocaleString()}
+            </span>
+            <span style={{ color: 'var(--noxa-text-muted)', fontSize: 13 }}>
+              / {totalCredits.toLocaleString()}
+            </span>
+          </div>
+          <div
+            style={{
+              height: 6,
+              background: 'var(--noxa-surface-muted)',
+              borderRadius: 3,
+              overflow: 'hidden',
+            }}
+          >
+            <div
+              style={{
+                width: `${usagePct}%`,
+                height: '100%',
+                background: 'linear-gradient(90deg, #7C3AED 0%, #A78BFA 100%)',
+                transition: 'width var(--noxa-duration-slow) var(--noxa-ease-standard)',
+              }}
+            />
+          </div>
+          <Link
+            href="/account/credits"
+            className="noxa-btn noxa-btn-primary"
+            style={{ padding: '10px 14px', fontSize: 13, alignSelf: 'flex-start' }}
+          >
+            履歴を見る
           </Link>
         </div>
-      </section>
+      </div>
 
-      <section>
-        <h2 className="mb-3 text-sm font-bold uppercase tracking-wide text-zinc-500">設定</h2>
-        <nav className="overflow-hidden rounded-xl border border-zinc-800 bg-zinc-950">
-          {[
-            ['/account/profile', 'プロフィール'],
-            ['/account/notifications', '通知設定'],
-            ['/account/subscription', 'プラン・課金'],
-            ['/account/credits', 'AI クレジット履歴'],
-            ['/account/delete', '退会'],
-          ].map(([href, label]) => (
-            <Link key={href} href={href} className="flex items-center justify-between border-b border-zinc-800 px-5 py-3.5 text-sm last:border-b-0 hover:bg-zinc-900">
-              <span>{label}</span>
-              <span className="text-zinc-500">→</span>
-            </Link>
-          ))}
-        </nav>
-      </section>
-    </main>
+      {/* Services */}
+      <div style={{ marginBottom: 16 }}>
+        <div className="flex items-baseline justify-between" style={{ marginBottom: 14 }}>
+          <h2 className="noxa-h2" style={{ margin: 0 }}>
+            サービス
+          </h2>
+          <span style={{ color: 'var(--noxa-text-muted)', fontSize: 13 }}>
+            {SERVICES.filter((s) => !s.soon).length} つ利用可能
+          </span>
+        </div>
+      </div>
+      <div
+        className="grid gap-4"
+        style={{ gridTemplateColumns: 'repeat(auto-fit, minmax(260px, 1fr))' }}
+      >
+        {SERVICES.map((s) => (
+          <Link
+            key={s.name}
+            href={s.url}
+            target={s.url.startsWith('http') ? '_blank' : undefined}
+            className="flex flex-col"
+            style={{
+              background: 'var(--noxa-surface-card)',
+              border: '1px solid var(--noxa-border)',
+              borderRadius: 16,
+              padding: 22,
+              gap: 12,
+              opacity: s.soon ? 0.78 : 1,
+              textDecoration: 'none',
+            }}
+          >
+            <div className="flex items-center justify-between">
+              <div className="flex items-center gap-2.5">
+                <span
+                  style={{
+                    width: 28, height: 28, borderRadius: 7,
+                    background: `${s.tint}22`,
+                    color: s.tint,
+                    display: 'flex', alignItems: 'center', justifyContent: 'center',
+                    fontFamily: 'var(--noxa-font-display-en)',
+                    fontSize: 13, fontWeight: 600,
+                  }}
+                >
+                  {s.name[0].toUpperCase()}
+                </span>
+                <div>
+                  <div
+                    className="noxa-mono"
+                    style={{
+                      color: 'var(--noxa-text-primary)',
+                      fontSize: 14,
+                      fontWeight: 600,
+                    }}
+                  >
+                    {s.name}
+                  </div>
+                  <div
+                    style={{
+                      color: 'var(--noxa-text-muted)',
+                      fontSize: 11,
+                      fontFamily: 'var(--noxa-font-sans-jp)',
+                    }}
+                  >
+                    {s.tag}
+                  </div>
+                </div>
+              </div>
+              <span
+                className="inline-flex items-center gap-1.5"
+                style={{ color: s.statusColor, fontSize: 11 }}
+              >
+                <span
+                  aria-hidden
+                  style={{
+                    width: 5, height: 5, borderRadius: 3,
+                    background: s.statusColor,
+                  }}
+                />
+                {s.status}
+              </span>
+            </div>
+            <div className="noxa-hairline" style={{ background: 'rgba(76, 29, 149, 0.30)' }} />
+            <div
+              className="noxa-mono"
+              style={{
+                color: s.soon ? 'var(--noxa-text-faint)' : s.tint,
+                fontSize: 12,
+                marginTop: 'auto',
+              }}
+            >
+              {s.soon ? '通知を受け取る →' : 'open →'}
+            </div>
+          </Link>
+        ))}
+      </div>
+    </AccountShell>
   );
 }
 
 export default function AccountPage() {
-  return <AuthGuard>{(user) => <AccountHub user={user} />}</AuthGuard>;
+  return <AuthGuard>{(user) => <AccountDashboard user={user} />}</AuthGuard>;
 }

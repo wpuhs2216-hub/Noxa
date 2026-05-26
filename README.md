@@ -5,15 +5,15 @@
 ## URL 体系
 
 ```
-noxa.vercel.app/                  ← NOXA ブランド LP
-noxa.vercel.app/account/login     ← NOXA アカウントログイン
-noxa.vercel.app/account/signup    ← NOXA アカウント作成
-noxa.vercel.app/account           ← マイページ（ハブ）
-noxa.vercel.app/account/profile   ← プロフィール編集
-noxa.vercel.app/account/notifications ← 通知設定
-noxa.vercel.app/account/subscription  ← プラン・課金
-noxa.vercel.app/account/credits   ← AI クレジット履歴
-noxa.vercel.app/account/delete    ← 退会
+noxa-delta.vercel.app/                  ← NOXA ブランド LP
+noxa-delta.vercel.app/account/login     ← NOXA アカウントログイン
+noxa-delta.vercel.app/account/signup    ← NOXA アカウント作成
+noxa-delta.vercel.app/account           ← マイページ（ハブ）
+noxa-delta.vercel.app/account/profile   ← プロフィール編集
+noxa-delta.vercel.app/account/notifications ← 通知設定
+noxa-delta.vercel.app/account/subscription  ← プラン・課金
+noxa-delta.vercel.app/account/credits   ← AI クレジット履歴
+noxa-delta.vercel.app/account/delete    ← 退会
 ```
 
 ## 関連プロダクト
@@ -26,7 +26,7 @@ noxa.vercel.app/account/delete    ← 退会
 
 本ドメイン取得 (noxa.app) 前の暫定構成:
 
-1. yorulog/nomishugy で「ログイン」→ `noxa.vercel.app/account/login?redirect=...` に遷移
+1. yorulog/nomishugy で「ログイン」→ `noxa-delta.vercel.app/account/login?redirect=...` に遷移
 2. ログイン成功 → Cloud Function `exchangeAuthToken` で Custom Token 発行
 3. `redirect` URL に `?noxaAuth=<token>` を付けて戻す
 4. yorulog/nomishugy 側の `NoxaAuthReceiver` が `signInWithCustomToken` で session 確立
@@ -48,4 +48,4 @@ NEXT_PUBLIC_USE_EMULATOR=true npm run dev  # port 3100
 
 ## デプロイ
 
-Vercel で `noxa.vercel.app` にデプロイ予定。
+Vercel で `noxa-delta.vercel.app` にデプロイ予定。

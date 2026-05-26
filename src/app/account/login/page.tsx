@@ -39,63 +39,203 @@ function LoginForm() {
   }
 
   return (
-    <main className="mx-auto max-w-md px-6 py-12">
-      <Link href="/" className="mb-8 inline-block text-3xl font-black tracking-tight">NOXA</Link>
-      <h1 className="mb-2 text-2xl font-bold">ログイン</h1>
-      <p className="mb-8 text-sm text-zinc-400">
-        NOXA アカウントでログイン
-        {redirect && <span className="ml-1">（ログイン後 {new URL(redirect).hostname} に戻ります）</span>}
-      </p>
-
-      <button
-        onClick={googleLogin}
-        disabled={loading}
-        className="mb-4 w-full rounded-lg border border-zinc-700 bg-zinc-900 px-4 py-3 text-sm font-medium transition hover:border-zinc-500 disabled:opacity-50"
+    <main className="min-h-screen flex" style={{ background: 'var(--noxa-bg-base)' }}>
+      {/* Visual half (hidden on mobile) */}
+      <div
+        className="hidden lg:flex flex-1 relative overflow-hidden flex-col justify-between"
+        style={{
+          borderRight: '1px solid var(--noxa-border)',
+          background: 'linear-gradient(160deg, #14101C 0%, #0B0710 100%)',
+          padding: 48,
+        }}
       >
-        Google でログイン
-      </button>
+        <div
+          aria-hidden
+          style={{
+            position: 'absolute', top: '20%', left: '10%',
+            width: 400, height: 400,
+            background: 'radial-gradient(circle, rgba(124, 58, 237, 0.18) 0%, transparent 60%)',
+          }}
+        />
+        <div
+          aria-hidden
+          style={{
+            position: 'absolute', bottom: '10%', right: '15%',
+            width: 280, height: 280,
+            background: 'radial-gradient(circle, rgba(212, 178, 122, 0.10) 0%, transparent 70%)',
+          }}
+        />
 
-      <div className="mb-4 flex items-center gap-3 text-xs text-zinc-500">
-        <div className="h-px flex-1 bg-zinc-800" />
-        <span>または</span>
-        <div className="h-px flex-1 bg-zinc-800" />
+        <Link href="/" className="noxa-logo relative" style={{ fontSize: 30 }}>
+          N<em>O</em>XA
+        </Link>
+
+        <div className="relative">
+          <h2
+            style={{
+              fontFamily: 'var(--noxa-font-display-jp)',
+              fontSize: 36,
+              color: 'var(--noxa-text-primary)',
+              lineHeight: 1.4,
+              fontWeight: 500,
+              letterSpacing: '0.02em',
+              margin: 0,
+            }}
+          >
+            おかえりなさい。
+            <br />
+            <span
+              style={{
+                color: 'var(--noxa-accent-primary-ink)',
+                fontSize: 22,
+                fontFamily: 'var(--noxa-font-display-en)',
+                fontStyle: 'italic',
+                fontWeight: 400,
+                letterSpacing: 0,
+              }}
+            >
+              The night is yours, again.
+            </span>
+          </h2>
+          <p style={{ color: 'var(--noxa-text-muted)', fontSize: 14, marginTop: 18, maxWidth: 360, lineHeight: 1.65 }}>
+            yorulog, nomishugy, NOXA Community. ひとつの NOXA アカウントで、全てのサービスに。
+          </p>
+        </div>
+
+        <div className="relative flex gap-4" style={{ color: 'var(--noxa-text-faint)', fontSize: 12 }}>
+          <span>© 2026 NOXA</span>
+          <span aria-hidden>·</span>
+          <Link href="/terms" style={{ color: 'var(--noxa-text-faint)' }}>利用規約</Link>
+          <span aria-hidden>·</span>
+          <Link href="/privacy" style={{ color: 'var(--noxa-text-faint)' }}>プライバシー</Link>
+        </div>
       </div>
 
-      <form onSubmit={submit} className="space-y-3">
-        <input
-          type="email"
-          placeholder="メールアドレス"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-          required
-          className="w-full rounded-lg border border-zinc-700 bg-zinc-900 px-4 py-3 text-sm placeholder:text-zinc-500 focus:border-violet-500 focus:outline-none"
-        />
-        <input
-          type="password"
-          placeholder="パスワード"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-          required
-          className="w-full rounded-lg border border-zinc-700 bg-zinc-900 px-4 py-3 text-sm placeholder:text-zinc-500 focus:border-violet-500 focus:outline-none"
-        />
-        {error && <p className="text-sm text-rose-400">{error}</p>}
-        <button
-          type="submit"
-          disabled={loading}
-          className="w-full rounded-lg bg-white px-4 py-3 text-sm font-medium text-black transition hover:bg-zinc-200 disabled:opacity-50"
-        >
-          {loading ? 'ログイン中…' : 'ログイン'}
-        </button>
-      </form>
+      {/* Form half */}
+      <div
+        className="flex flex-col justify-center w-full lg:w-[460px]"
+        style={{ padding: '64px 32px', gap: 28 }}
+      >
+        <div>
+          <Link href="/" className="noxa-logo lg:hidden inline-block mb-8" style={{ fontSize: 24 }}>
+            N<em>O</em>XA
+          </Link>
+          <div className="noxa-eyebrow" style={{ marginBottom: 14 }}>Sign in</div>
+          <h1
+            className="noxa-display"
+            style={{ fontSize: 36, marginBottom: 8 }}
+          >
+            Welcome back
+          </h1>
+          <p style={{ color: 'var(--noxa-text-muted)', fontSize: 14, margin: 0 }}>
+            NOXA アカウントでログイン
+            {redirect && (
+              <>
+                <br />
+                <span style={{ fontSize: 12 }}>
+                  (ログイン後 {safeHost(redirect)} に戻ります)
+                </span>
+              </>
+            )}
+          </p>
+        </div>
 
-      <p className="mt-6 text-center text-sm text-zinc-400">
-        アカウントをお持ちでない方は{' '}
-        <Link href={`/account/signup${redirect ? `?redirect=${encodeURIComponent(redirect)}` : ''}`} className="text-violet-400 hover:underline">
-          新規作成
-        </Link>
-      </p>
+        <form onSubmit={submit} className="flex flex-col" style={{ gap: 16 }}>
+          <div>
+            <label className="noxa-label" htmlFor="email">メールアドレス</label>
+            <input
+              id="email"
+              type="email"
+              className="noxa-input"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              placeholder="you@noxa.app"
+              required
+            />
+          </div>
+          <div>
+            <label className="noxa-label" htmlFor="password">パスワード</label>
+            <input
+              id="password"
+              type="password"
+              className="noxa-input"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              required
+              aria-invalid={!!error}
+            />
+            <div style={{ textAlign: 'right', marginTop: 6 }}>
+              <Link href="/account/reset" style={{ color: 'var(--noxa-accent-primary-ink)', fontSize: 12 }}>
+                パスワードを忘れた？
+              </Link>
+            </div>
+          </div>
+          {error && (
+            <p style={{ color: 'var(--noxa-accent-destructive)', fontSize: 13, margin: 0 }}>
+              {error}
+            </p>
+          )}
+          <button
+            type="submit"
+            disabled={loading}
+            className="noxa-btn noxa-btn-primary"
+            style={{ padding: '14px', fontSize: 15, width: '100%' }}
+          >
+            {loading ? 'ログイン中…' : 'ログイン'}
+          </button>
+        </form>
+
+        <div className="flex items-center gap-3">
+          <div className="flex-1 noxa-hairline" />
+          <span
+            className="noxa-mono"
+            style={{ color: 'var(--noxa-text-faint)', fontSize: 11, letterSpacing: '0.1em' }}
+          >
+            OR
+          </span>
+          <div className="flex-1 noxa-hairline" />
+        </div>
+
+        <button
+          type="button"
+          onClick={googleLogin}
+          disabled={loading}
+          className="noxa-btn noxa-btn-secondary"
+          style={{ padding: '12px', fontSize: 14, width: '100%' }}
+        >
+          <span
+            style={{
+              width: 18, height: 18, borderRadius: 4,
+              background: '#fff', color: '#0B0710',
+              display: 'inline-flex', alignItems: 'center', justifyContent: 'center',
+              fontFamily: 'var(--noxa-font-display-en)', fontSize: 13, fontWeight: 600,
+            }}
+          >
+            G
+          </span>
+          Google で続ける
+        </button>
+
+        <p style={{ textAlign: 'center', fontSize: 13, color: 'var(--noxa-text-muted)', margin: 0 }}>
+          アカウントをお持ちでない？{' '}
+          <Link
+            href={`/account/signup${redirect ? `?redirect=${encodeURIComponent(redirect)}` : ''}`}
+            style={{ color: 'var(--noxa-accent-primary-ink)' }}
+          >
+            新規登録
+          </Link>
+        </p>
+      </div>
     </main>
   );
+}
+
+function safeHost(url: string): string {
+  try {
+    return new URL(url).hostname;
+  } catch {
+    return url;
+  }
 }
 
 function parseFirebaseAuthError(err: unknown): string {

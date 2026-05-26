@@ -1,10 +1,256 @@
+/* ──────────────────────────────────────────────
+   NOXA Design System — Tokens
+   nox（夜・闇）+ a — 夜の街のための統合プラットフォーム
+
+   Source: Claude Design (claude.ai/design)
+   ────────────────────────────────────────────── */
+
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Shippori+Mincho+B1:wght@400;500;600;700&family=Noto+Sans+JP:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Geist:wght@300;400;500;600;700&display=swap');
 @import "tailwindcss";
 
 :root {
-  --background: #0b0b0f;
-  --foreground: #f5f5f7;
-  --accent: #7c3aed;
+  /* Color — Background */
+  --noxa-bg-base:      #0B0710;
+  --noxa-bg-elevated:  #14101C;
+  --noxa-bg-overlay:   rgba(11, 7, 16, 0.72);
+
+  /* Color — Surface */
+  --noxa-surface-card:  #1A1424;
+  --noxa-surface-muted: #221B2E;
+  --noxa-surface-hover: #2A2237;
+
+  /* Color — Accent (violet single-hue hierarchy) */
+  --noxa-accent-primary:       #7C3AED;
+  --noxa-accent-primary-ink:   #A78BFA;
+  --noxa-accent-primary-faint: #C4B5FD;
+  --noxa-accent-primary-press: #5B21B6;
+  --noxa-accent-primary-deep:  #4C1D95;
+  --noxa-accent-destructive:   #C4384A;
+
+  /* Color — Text */
+  --noxa-text-primary: #F5F1FA;
+  --noxa-text-muted:   #9C92AB;
+  --noxa-text-faint:   #645A75;
+  --noxa-text-inverse: #0B0710;
+
+  /* Color — Border / Divider */
+  --noxa-border:        #2A2237;
+  --noxa-border-strong: #3A314A;
+  --noxa-divider:       rgba(167, 139, 250, 0.16);
+
+  /* Family tints — for sub-brand contexts */
+  --yorulog-tint:    #7C3AED;
+  --nomishugy-tint:  #A78BFA;
+  --community-tint:  #C4384A;
+
+  /* Type — Family */
+  --noxa-font-display-en: 'Cormorant Garamond', 'Shippori Mincho B1', serif;
+  --noxa-font-display-jp: 'Shippori Mincho B1', 'Cormorant Garamond', serif;
+  --noxa-font-sans:       'Geist', 'Noto Sans JP', system-ui, sans-serif;
+  --noxa-font-sans-jp:    'Noto Sans JP', 'Geist', system-ui, sans-serif;
+  --noxa-font-mono:       'JetBrains Mono', ui-monospace, monospace;
+
+  /* Type — Scale */
+  --noxa-display-size:   56px; --noxa-display-lh:  1.08; --noxa-display-weight: 500;
+  --noxa-h1-size:        40px; --noxa-h1-lh:       1.15; --noxa-h1-weight:      500;
+  --noxa-h2-size:        28px; --noxa-h2-lh:       1.25; --noxa-h2-weight:      500;
+  --noxa-h3-size:        20px; --noxa-h3-lh:       1.35; --noxa-h3-weight:      600;
+  --noxa-body-size:      15px; --noxa-body-lh:     1.6;  --noxa-body-weight:    400;
+  --noxa-caption-size:   13px; --noxa-caption-lh:  1.45; --noxa-caption-weight: 500;
+  --noxa-mono-size:      13px; --noxa-mono-lh:     1.5;  --noxa-mono-weight:    400;
+
+  /* Spacing — 4px base */
+  --noxa-space-0:  0;
+  --noxa-space-1:  4px;
+  --noxa-space-2:  8px;
+  --noxa-space-3:  12px;
+  --noxa-space-4:  16px;
+  --noxa-space-6:  24px;
+  --noxa-space-8:  32px;
+  --noxa-space-12: 48px;
+  --noxa-space-16: 64px;
+  --noxa-space-24: 96px;
+
+  /* Radius */
+  --noxa-radius-sm:  4px;
+  --noxa-radius-md:  10px;
+  --noxa-radius-lg:  18px;
+  --noxa-radius-pill: 9999px;
+
+  /* Motion */
+  --noxa-duration-fast: 150ms;
+  --noxa-duration-base: 250ms;
+  --noxa-duration-slow: 400ms;
+  --noxa-ease-standard: cubic-bezier(0.4, 0.0, 0.2, 1);
+  --noxa-ease-enter:    cubic-bezier(0.0, 0.0, 0.2, 1);
+  --noxa-ease-exit:     cubic-bezier(0.4, 0.0, 1, 1);
+  --noxa-ease-emphasized: cubic-bezier(0.2, 0.7, 0.1, 1);
+
+  /* Shadow */
+  --noxa-shadow-sm: 0 1px 2px rgba(0,0,0,0.5);
+  --noxa-shadow-md: 0 6px 24px rgba(0,0,0,0.45), 0 1px 2px rgba(0,0,0,0.4);
+  --noxa-shadow-lg: 0 24px 60px rgba(0,0,0,0.6), 0 2px 6px rgba(0,0,0,0.4);
+  --noxa-shadow-glow: 0 0 0 1px rgba(124, 58, 237, 0.32), 0 8px 32px rgba(124, 58, 237, 0.18);
 }
 
-html, body { background: var(--background); color: var(--foreground); }
-body { font-family: ui-sans-serif, system-ui, -apple-system, "Segoe UI", "Hiragino Kaku Gothic ProN", sans-serif; }
+html, body {
+  background: var(--noxa-bg-base);
+  color: var(--noxa-text-primary);
+  font-family: var(--noxa-font-sans);
+  font-size: var(--noxa-body-size);
+  line-height: var(--noxa-body-lh);
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+/* Typography utility classes */
+.noxa-display    { font-family: var(--noxa-font-display-en); font-size: var(--noxa-display-size); line-height: var(--noxa-display-lh); font-weight: var(--noxa-display-weight); letter-spacing: -0.02em; }
+.noxa-display-jp { font-family: var(--noxa-font-display-jp); font-size: var(--noxa-display-size); line-height: var(--noxa-display-lh); font-weight: var(--noxa-display-weight); letter-spacing: 0.02em; }
+.noxa-h1         { font-family: var(--noxa-font-display-en); font-size: var(--noxa-h1-size); line-height: var(--noxa-h1-lh); font-weight: var(--noxa-h1-weight); letter-spacing: -0.01em; }
+.noxa-h2         { font-family: var(--noxa-font-sans); font-size: var(--noxa-h2-size); line-height: var(--noxa-h2-lh); font-weight: var(--noxa-h2-weight); letter-spacing: -0.005em; }
+.noxa-h3         { font-family: var(--noxa-font-sans); font-size: var(--noxa-h3-size); line-height: var(--noxa-h3-lh); font-weight: var(--noxa-h3-weight); }
+.noxa-body       { font-family: var(--noxa-font-sans); font-size: var(--noxa-body-size); line-height: var(--noxa-body-lh); font-weight: var(--noxa-body-weight); }
+.noxa-caption    { font-family: var(--noxa-font-sans); font-size: var(--noxa-caption-size); line-height: var(--noxa-caption-lh); font-weight: var(--noxa-caption-weight); color: var(--noxa-text-muted); }
+.noxa-mono       { font-family: var(--noxa-font-mono); font-size: var(--noxa-mono-size); line-height: var(--noxa-mono-lh); letter-spacing: -0.01em; }
+.noxa-eyebrow {
+  font-family: var(--noxa-font-mono);
+  font-size: 11px; line-height: 1.2;
+  letter-spacing: 0.18em; text-transform: uppercase;
+  color: var(--noxa-accent-primary-ink);
+}
+
+/* Logo wordmark (N O X A) — "O" picked out in lavender */
+.noxa-logo {
+  font-family: var(--noxa-font-display-en);
+  font-weight: 500;
+  letter-spacing: 0.06em;
+  color: var(--noxa-text-primary);
+}
+.noxa-logo > em {
+  color: var(--noxa-accent-primary-ink);
+  font-style: normal;
+}
+
+/* Subtle hairline divider */
+.noxa-hairline {
+  height: 1px;
+  background: var(--noxa-divider);
+}
+
+/* Buttons */
+.noxa-btn {
+  font-family: var(--noxa-font-sans);
+  font-size: 14px; font-weight: 500;
+  padding: 10px 18px;
+  border-radius: var(--noxa-radius-md);
+  border: none; cursor: pointer;
+  letter-spacing: -0.1px;
+  transition: all var(--noxa-duration-base) var(--noxa-ease-standard);
+  display: inline-flex; align-items: center; justify-content: center; gap: 8px;
+}
+.noxa-btn:focus-visible {
+  outline: 2px solid var(--noxa-accent-primary-ink);
+  outline-offset: 2px;
+}
+.noxa-btn-primary {
+  background: var(--noxa-accent-primary);
+  color: #fff;
+}
+.noxa-btn-primary:hover:not(:disabled) {
+  background: #9061F0;
+  box-shadow: var(--noxa-shadow-glow);
+}
+.noxa-btn-primary:active:not(:disabled) {
+  background: var(--noxa-accent-primary-press);
+}
+.noxa-btn-primary:disabled {
+  background: var(--noxa-surface-hover);
+  color: var(--noxa-text-faint);
+  cursor: not-allowed;
+}
+.noxa-btn-secondary {
+  background: var(--noxa-surface-card);
+  color: var(--noxa-text-primary);
+  border: 1px solid var(--noxa-border);
+}
+.noxa-btn-secondary:hover:not(:disabled) {
+  background: var(--noxa-surface-muted);
+  border-color: var(--noxa-accent-primary-ink);
+}
+.noxa-btn-secondary:active:not(:disabled) {
+  background: var(--noxa-surface-hover);
+}
+.noxa-btn-ghost {
+  background: transparent;
+  color: var(--noxa-text-primary);
+}
+.noxa-btn-ghost:hover:not(:disabled) {
+  background: rgba(124, 58, 237, 0.10);
+}
+.noxa-btn-ghost:active:not(:disabled) {
+  background: rgba(124, 58, 237, 0.18);
+}
+.noxa-btn-destructive {
+  background: var(--noxa-accent-destructive);
+  color: #fff;
+}
+.noxa-btn-destructive:hover:not(:disabled) { background: #D24557; }
+.noxa-btn-destructive:active:not(:disabled) { background: #A82D3D; }
+
+/* Input */
+.noxa-input {
+  font-family: var(--noxa-font-sans);
+  font-size: 14px;
+  padding: 11px 14px;
+  border-radius: var(--noxa-radius-md);
+  width: 100%;
+  box-sizing: border-box;
+  background: var(--noxa-bg-elevated);
+  color: var(--noxa-text-primary);
+  border: 1px solid var(--noxa-border);
+  outline: none;
+  transition: border-color var(--noxa-duration-fast) var(--noxa-ease-standard),
+              box-shadow var(--noxa-duration-fast) var(--noxa-ease-standard);
+}
+.noxa-input::placeholder { color: var(--noxa-text-faint); }
+.noxa-input:focus {
+  border: 1.5px solid var(--noxa-accent-primary);
+  box-shadow: 0 0 0 4px rgba(124, 58, 237, 0.16);
+}
+.noxa-input[aria-invalid="true"] {
+  border: 1.5px solid var(--noxa-accent-destructive);
+}
+.noxa-input:disabled {
+  opacity: 0.55;
+  cursor: not-allowed;
+}
+
+/* Card */
+.noxa-card {
+  background: var(--noxa-surface-card);
+  border: 1px solid var(--noxa-border);
+  border-radius: var(--noxa-radius-lg);
+  padding: 22px;
+}
+
+/* Label */
+.noxa-label {
+  color: var(--noxa-text-muted);
+  font-size: 12px;
+  font-weight: 500;
+  display: block;
+  margin-bottom: 6px;
+}
+
+/* Selection */
+::selection {
+  background: rgba(167, 139, 250, 0.35);
+  color: var(--noxa-text-primary);
+}
+
+/* Scrollbars (subtle) */
+*::-webkit-scrollbar { width: 10px; height: 10px; }
+*::-webkit-scrollbar-track { background: transparent; }
+*::-webkit-scrollbar-thumb { background: var(--noxa-border); border-radius: 5px; }
+*::-webkit-scrollbar-thumb:hover { background: var(--noxa-border-strong); }

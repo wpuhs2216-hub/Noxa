@@ -1,8 +1,8 @@
 'use client';
 import { useState, useEffect } from 'react';
-import Link from 'next/link';
 import { doc, getDoc, setDoc, serverTimestamp } from 'firebase/firestore';
 import { AuthGuard } from '@/components/AuthGuard';
+import { AccountShell } from '@/components/AccountShell';
 import { db } from '@/lib/firebase/config';
 import type { User } from 'firebase/auth';
 
@@ -31,15 +31,13 @@ function NotificationsEditor({ user }: { user: User }) {
 
   async function save() {
     setSaving(true);
-    await setDoc(doc(db, `account_app_settings/${user.uid}`), {
-      id: user.uid,
-      notificationPrefs: prefs,
-      updatedAt: serverTimestamp(),
-    }, { merge: true });
+    await setDoc(
+      doc(db, `account_app_settings/${user.uid}`),
+      { id: user.uid, notificationPrefs: prefs, updatedAt: serverTimestamp() },
+      { merge: true },
+    );
     setSaving(false);
   }
-
-  if (!loaded) return <main className="p-10 text-sm text-zinc-500">読み込み中…</main>;
 
   const items: { key: keyof typeof DEFAULTS; label: string; desc: string }[] = [
     { key: 'birthday', label: '誕生日通知', desc: '顧客の誕生日リマインド (yorulog)' },
@@ -49,35 +47,47 @@ function NotificationsEditor({ user }: { user: User }) {
   ];
 
   return (
-    <main className="mx-auto max-w-2xl px-6 py-10">
-      <Link href="/account" className="mb-6 inline-block text-sm text-zinc-400 hover:text-zinc-200">← NOXA Account</Link>
-      <h1 className="mb-2 text-2xl font-bold">通知設定</h1>
-      <p className="mb-8 text-sm text-zinc-400">NOXA 全サービス共通の通知設定です</p>
+    <AccountShell user={user}>
+      <div className="noxa-eyebrow" style={{ marginBottom: 10 }}>Account · Notifications</div>
+      <h1 className="noxa-h1" style={{ margin: '0 0 8px' }}>通知設定</h1>
+      <p style={{ color: 'var(--noxa-text-muted)', fontSize: 14, marginBottom: 32 }}>
+        NOXA 全サービス共通の通知設定です
+      </p>
 
-      <div className="space-y-3 rounded-2xl border border-zinc-800 bg-zinc-950 p-6">
-        {items.map((item) => (
-          <label key={item.key} className="flex items-start justify-between gap-4 py-3">
-            <div>
-              <div className="text-sm font-medium">{item.label}</div>
-              <div className="text-xs text-zinc-500">{item.desc}</div>
+      {!loaded ? (
+        <div className="noxa-caption">読み込み中…</div>
+      ) : (
+        <div className="noxa-card" style={{ maxWidth: 720, display: 'flex', flexDirection: 'column', gap: 12 }}>
+          {items.map((item, i) => (
+            <div key={item.key}>
+              {i > 0 && <div className="noxa-hairline" style={{ margin: '6px 0' }} />}
+              <label className="flex items-start justify-between gap-4" style={{ padding: '8px 0', cursor: 'pointer' }}>
+                <div>
+                  <div style={{ color: 'var(--noxa-text-primary)', fontSize: 14, fontWeight: 500, marginBottom: 4 }}>
+                    {item.label}
+                  </div>
+                  <div style={{ color: 'var(--noxa-text-muted)', fontSize: 12 }}>{item.desc}</div>
+                </div>
+                <input
+                  type="checkbox"
+                  checked={prefs[item.key]}
+                  onChange={(e) => setPrefs({ ...prefs, [item.key]: e.target.checked })}
+                  style={{ width: 18, height: 18, marginTop: 4, accentColor: 'var(--noxa-accent-primary)' }}
+                />
+              </label>
             </div>
-            <input
-              type="checkbox"
-              checked={prefs[item.key]}
-              onChange={(e) => setPrefs({ ...prefs, [item.key]: e.target.checked })}
-              className="mt-1 size-5"
-            />
-          </label>
-        ))}
-        <button
-          onClick={save}
-          disabled={saving}
-          className="mt-4 rounded-lg bg-white px-6 py-2.5 text-sm font-medium text-black transition hover:bg-zinc-200 disabled:opacity-50"
-        >
-          {saving ? '保存中…' : '保存'}
-        </button>
-      </div>
-    </main>
+          ))}
+          <button
+            onClick={save}
+            disabled={saving}
+            className="noxa-btn noxa-btn-primary"
+            style={{ padding: '12px 24px', fontSize: 14, alignSelf: 'flex-start', marginTop: 12 }}
+          >
+            {saving ? '保存中…' : '保存'}
+          </button>
+        </div>
+      )}
+    </AccountShell>
   );
 }
 

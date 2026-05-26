@@ -25,8 +25,11 @@ export function AuthGuard({ children }: { children: (user: User) => React.ReactN
 
   if (loading || !user) {
     return (
-      <main className="flex min-h-screen items-center justify-center">
-        <div className="text-sm text-zinc-500">読み込み中…</div>
+      <main
+        className="flex min-h-screen items-center justify-center"
+        style={{ background: 'var(--noxa-bg-base)' }}
+      >
+        <div className="noxa-eyebrow">読み込み中…</div>
       </main>
     );
   }
