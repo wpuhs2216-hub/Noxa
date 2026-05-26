@@ -12,6 +12,7 @@ import {
   signInWithPopup,
   signOut as fbSignOut,
   GoogleAuthProvider,
+  OAuthProvider,
   type User,
 } from 'firebase/auth';
 import { doc, setDoc, getDoc, serverTimestamp } from 'firebase/firestore';
@@ -55,6 +56,22 @@ export async function loginWithEmail(email: string, password: string): Promise<U
 export async function signinWithGoogle(): Promise<User> {
   googleProvider.setCustomParameters({ prompt: 'select_account' });
   const cred = await signInWithPopup(auth, googleProvider);
+  await ensureAccountUser(cred.user);
+  return cred.user;
+}
+
+/**
+ * Apple サインイン（ポップアップ）
+ * Firebase Console で Apple provider 有効化 + Service ID 設定済み前提:
+ *   - Service ID: app.noxa.signin
+ *   - Apple Developer の Web Auth Domain に noxa-platform.firebaseapp.com 登録済み
+ *   - Return URL: https://noxa-platform.firebaseapp.com/__/auth/handler
+ */
+export async function signinWithApple(): Promise<User> {
+  const provider = new OAuthProvider('apple.com');
+  provider.addScope('email');
+  provider.addScope('name');
+  const cred = await signInWithPopup(auth, provider);
   await ensureAccountUser(cred.user);
   return cred.user;
 }

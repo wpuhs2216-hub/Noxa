@@ -2,7 +2,7 @@
 import { useState, Suspense } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
 import Link from 'next/link';
-import { loginWithEmail, signinWithGoogle, handlePostLoginRedirect } from '@/lib/auth';
+import { loginWithEmail, signinWithGoogle, signinWithApple, handlePostLoginRedirect } from '@/lib/auth';
 
 function LoginForm() {
   const router = useRouter();
@@ -31,6 +31,18 @@ function LoginForm() {
     setError(null);
     try {
       await signinWithGoogle();
+      await handlePostLoginRedirect(redirect, router);
+    } catch (err: unknown) {
+      setError(parseFirebaseAuthError(err));
+      setLoading(false);
+    }
+  }
+
+  async function appleLogin() {
+    setLoading(true);
+    setError(null);
+    try {
+      await signinWithApple();
       await handlePostLoginRedirect(redirect, router);
     } catch (err: unknown) {
       setError(parseFirebaseAuthError(err));
@@ -214,6 +226,24 @@ function LoginForm() {
             G
           </span>
           Google で続ける
+        </button>
+
+        <button
+          type="button"
+          onClick={appleLogin}
+          disabled={loading}
+          className="noxa-btn noxa-btn-secondary"
+          style={{ padding: '12px', fontSize: 14, width: '100%' }}
+        >
+          <span
+            style={{
+              width: 18, height: 18,
+              display: 'inline-flex', alignItems: 'center', justifyContent: 'center',
+              fontSize: 16, color: 'var(--noxa-text-primary)',
+            }}
+            aria-hidden
+          ></span>
+          Apple で続ける
         </button>
 
         <p style={{ textAlign: 'center', fontSize: 13, color: 'var(--noxa-text-muted)', margin: 0 }}>
