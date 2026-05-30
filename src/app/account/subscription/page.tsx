@@ -37,7 +37,7 @@ function SubscriptionView({ user }: { user: User }) {
         <div
           className="relative overflow-hidden"
           style={{
-            background: 'linear-gradient(135deg, #1A1424 0%, #221B2E 100%)',
+            background: 'linear-gradient(135deg, #1A1228 0%, #221830 100%)',
             border: '1px solid var(--noxa-border)',
             borderRadius: 'var(--noxa-radius-lg)',
             padding: 28,
@@ -48,7 +48,7 @@ function SubscriptionView({ user }: { user: User }) {
             style={{
               position: 'absolute', top: -60, right: -60,
               width: 240, height: 240,
-              background: 'radial-gradient(circle, rgba(124, 58, 237, 0.22) 0%, transparent 60%)',
+              background: 'radial-gradient(circle, rgba(139, 92, 246, 0.22) 0%, transparent 60%)',
             }}
           />
           <div className="relative">
@@ -120,9 +120,9 @@ function SubscriptionView({ user }: { user: User }) {
         <div
           style={{
             padding: 20,
-            border: '1px solid rgba(167, 139, 250, 0.30)',
+            border: '1px solid rgba(184, 156, 251, 0.30)',
             borderRadius: 'var(--noxa-radius-md)',
-            background: 'rgba(167, 139, 250, 0.06)',
+            background: 'rgba(184, 156, 251, 0.06)',
             color: 'var(--noxa-accent-primary-faint)',
             fontSize: 13,
             lineHeight: 1.65,

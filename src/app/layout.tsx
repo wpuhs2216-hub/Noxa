@@ -1,15 +1,78 @@
 import './globals.css';
-import type { Metadata } from 'next';
+import type { Metadata, Viewport } from 'next';
+
+export const viewport: Viewport = {
+  themeColor: [
+    { media: '(prefers-color-scheme: light)', color: '#07050D' },
+    { media: '(prefers-color-scheme: dark)',  color: '#07050D' },
+  ],
+  width: 'device-width',
+  initialScale: 1,
+  colorScheme: 'dark',
+};
 
 export const metadata: Metadata = {
-  title: 'NOXA — 夜の街のためのプラットフォーム',
-  description: 'ナイトワーカー・夜の街オーナー・夜遊びユーザーのための統合プラットフォーム NOXA。アカウント 1 つで yorulog / nomishugy / NOXA コミュニティを利用。',
   metadataBase: new URL('https://noxa-delta.vercel.app'),
+  title: {
+    default: 'NOXA — 夜の街のための統合プラットフォーム',
+    template: '%s · NOXA',
+  },
+  description:
+    'ナイトワーカー・夜の街オーナー・夜遊びユーザーのための統合プラットフォーム NOXA。アカウント 1 つで yorulog（夜職売上 CRM）、nomishugy（大阪バーポータル）、NOXA コミュニティを利用できます。',
+  applicationName: 'NOXA',
+  authors: [{ name: 'egshugy' }],
+  generator: 'Next.js',
+  keywords: [
+    'NOXA',
+    'ノクサ',
+    'よるしゅぎ',
+    'えぐしゅぎ',
+    'ナイトワーカー',
+    '夜職',
+    '夜の街',
+    'ホスト',
+    'キャバ',
+    'バー',
+    'CRM',
+    '統合プラットフォーム',
+  ],
+  manifest: '/manifest.webmanifest',
+  alternates: {
+    canonical: '/',
+  },
+  formatDetection: {
+    telephone: false,
+    email: false,
+    address: false,
+  },
   openGraph: {
-    title: 'NOXA',
-    description: '夜の街のためのプラットフォーム',
     type: 'website',
     locale: 'ja_JP',
+    siteName: 'NOXA',
+    title: 'NOXA — Nightfall, refined.',
+    description: '夜の街のための統合プラットフォーム。アカウント 1 つで、すべてのサービスに。',
+    images: [
+      {
+        url: '/opengraph-image',
+        width: 1200,
+        height: 630,
+        alt: 'NOXA',
+      },
+    ],
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'NOXA — Nightfall, refined.',
+    description: '夜の街のための統合プラットフォーム。',
+    images: ['/opengraph-image'],
+  },
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+    },
   },
 };
 
@@ -17,7 +80,11 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   return (
     <html lang="ja">
       <body className="min-h-screen antialiased">
-        {children}
+        {/* a11y: skip to main content (見える化は globals.css の .noxa-skip-link:focus) */}
+        <a href="#main" className="noxa-skip-link">
+          メインコンテンツへスキップ
+        </a>
+        <main id="main">{children}</main>
       </body>
     </html>
   );

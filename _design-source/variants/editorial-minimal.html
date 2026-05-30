@@ -1,0 +1,284 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8" />
+<title>NOXA Variant B — Editorial Minimal</title>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Shippori+Mincho+B1:wght@300;400;500;600&family=Noto+Sans+JP:wght@300;400;500&family=JetBrains+Mono:wght@400&family=Geist:wght@300;400;500&display=swap" />
+<style>
+/* Variant B: Editorial Minimal — 余白 2倍、雑誌見開き寄り、グラデ撤廃 */
+:root {
+  --bg-base:        #080608;
+  --bg-elevated:    #0F0C0F;
+  --surface-card:   #161216;
+  --surface-muted:  #1C181C;
+
+  --violet:         #7C3AED;
+  --violet-ink:     #A78BFA;
+  --violet-faint:   #C4B5FD;
+  --wine:           #C4384A;
+
+  --bone:           #EDE5D7;          /* off-white, warm */
+  --text-primary:   #EDE5D7;
+  --text-muted:     #8A8088;
+  --text-faint:     #4E464C;
+
+  --border:         #1C181C;
+  --border-strong:  #2A242A;
+  --divider:        rgba(237, 229, 215, 0.10);  /* bone hairline */
+
+  --yorulog-tint:    #7C3AED;
+  --nomishugy-tint:  #A78BFA;
+  --community-tint:  #C4384A;
+
+  --font-display-en: 'Cormorant Garamond', 'Shippori Mincho B1', serif;
+  --font-display-jp: 'Shippori Mincho B1', 'Cormorant Garamond', serif;
+  --font-sans:       'Geist', 'Noto Sans JP', system-ui, sans-serif;
+  --font-mono:       'JetBrains Mono', ui-monospace, monospace;
+}
+html, body { margin: 0; padding: 0; background: #f0eee9; color: var(--text-primary); font-family: var(--font-sans); -webkit-font-smoothing: antialiased; }
+* { box-sizing: border-box; }
+
+.canvas { max-width: 1320px; margin: 0 auto; padding: 40px 20px; }
+.canvas-head h1 { font-family: var(--font-display-en); font-size: 36px; color: #2a251f; margin: 0 0 4px; letter-spacing: -0.01em; font-weight: 400; }
+.canvas-head p { color: rgba(60,50,40,0.65); font-size: 14px; margin: 0; padding: 0 32px 12px; }
+.canvas-head { padding: 24px 32px 12px; }
+.canvas-section { padding: 24px 32px 12px; }
+.canvas-section h2 { font-family: var(--font-sans); font-size: 18px; color: #2a251f; margin: 0 0 6px; font-weight: 600; }
+.canvas-section p { color: rgba(60,50,40,0.6); font-size: 13px; margin: 0; }
+.artboard-label { font-family: var(--font-mono); font-size: 11px; color: rgba(60,50,40,0.55); text-transform: uppercase; letter-spacing: 0.1em; margin: 24px 32px 8px; }
+.artboard { background: var(--bg-base); border-radius: 0; box-shadow: 0 1px 3px rgba(0,0,0,.08), 0 4px 16px rgba(0,0,0,.06); margin: 0 32px 24px; overflow: hidden; }
+
+.noxa-root { background: var(--bg-base); color: var(--text-primary); font-family: var(--font-sans); }
+.eyebrow { font-family: var(--font-mono); font-size: 10px; line-height: 1.2; letter-spacing: 0.24em; text-transform: uppercase; color: var(--violet-ink); }
+.rule { height: 1px; background: var(--divider); }
+</style>
+</head>
+<body>
+
+<div class="canvas">
+  <div class="canvas-head">
+    <h1>NOXA — Variant B · Editorial Minimal</h1>
+  </div>
+  <p style="padding:0 32px;color:rgba(60,50,40,0.65);font-size:14px;margin:0 0 12px">雑誌の見開きを意識した余白拡大版。color は violet 3 段階 + wine + bone white に絞り、グラデーション完全撤廃。display タイポは Cormorant italic の存在感で勝負。</p>
+
+  <div class="canvas-section">
+    <h2>変更点サマリ</h2>
+    <p>余白: hero 96px → 160px、padding 全般 1.5〜2 倍 / グラデ廃止：radial-glow も使わない / display 120px Cormorant Light Italic / divider は bone hairline 10% / 装飾なし、罫線で構造を示す / 色は violet+wine+bone のみ</p>
+  </div>
+
+  <div class="artboard-label">Landing Page · 1280×1280（縦長）</div>
+  <div class="artboard" style="width:1280px;height:1280px">
+    <div class="noxa-root" style="width:100%;height:100%;position:relative;overflow:hidden">
+      <!-- nav -->
+      <div style="position:relative;display:flex;align-items:center;padding:36px 96px;border-bottom:1px solid var(--divider)">
+        <div style="font-family:var(--font-display-en);font-size:22px;color:var(--text-primary);letter-spacing:0.18em;font-weight:300">NOXA</div>
+        <div style="display:flex;gap:36px;margin-left:80px;flex:1">
+          <span style="color:var(--text-muted);font-size:12px;letter-spacing:0.04em">yorulog</span>
+          <span style="color:var(--text-muted);font-size:12px;letter-spacing:0.04em">nomishugy</span>
+          <span style="color:var(--text-muted);font-size:12px;letter-spacing:0.04em">community</span>
+        </div>
+        <div style="display:flex;gap:24px;align-items:center">
+          <span style="color:var(--text-muted);font-size:12px;letter-spacing:0.04em">Sign in</span>
+        </div>
+      </div>
+
+      <!-- hero: editorial layout — date col + huge type -->
+      <div style="position:relative;padding:160px 96px 80px;display:grid;grid-template-columns:160px 1fr;gap:48px">
+        <div>
+          <div class="eyebrow" style="margin-bottom:16px">Issue 01</div>
+          <div style="font-family:var(--font-mono);font-size:11px;color:var(--text-faint);letter-spacing:0.1em;line-height:1.6">
+            May 2026<br>
+            Vol. 1 — Refined.<br>
+            <br>
+            <span style="color:var(--violet-ink)">An umbrella</span><br>
+            for the night<br>
+            <span style="color:var(--violet-ink)">economy.</span>
+          </div>
+        </div>
+        <div>
+          <h1 style="font-family:var(--font-display-en);font-size:140px;line-height:0.95;font-weight:300;color:var(--text-primary);margin:0;letter-spacing:-0.03em;font-style:italic">Nightfall,</h1>
+          <h1 style="font-family:var(--font-display-en);font-size:140px;line-height:0.95;font-weight:300;color:var(--violet-ink);margin:0;letter-spacing:-0.03em;font-style:italic">refined.</h1>
+          <div style="height:1px;background:var(--divider);margin:48px 0 32px;width:60%"></div>
+          <div style="font-family:var(--font-display-jp);font-size:24px;color:var(--text-primary);font-weight:400;line-height:1.7;max-width:560px;letter-spacing:0.04em">
+            働く、集う、つながる。<br>
+            <span style="color:var(--text-muted)">夜の街に必要なすべてを、ひとつに。</span>
+          </div>
+          <div style="display:flex;gap:32px;margin-top:64px;align-items:center">
+            <a style="color:var(--text-primary);font-size:13px;border-bottom:1px solid var(--text-primary);padding-bottom:4px;letter-spacing:0.04em;cursor:pointer">Open an account →</a>
+            <a style="color:var(--text-muted);font-size:13px;letter-spacing:0.04em;cursor:pointer">See the products</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- product strip — numbered editorial entries -->
+      <div style="position:relative;padding:80px 96px 96px;border-top:1px solid var(--divider)">
+        <div style="display:grid;grid-template-columns:160px 1fr;gap:48px;margin-bottom:48px">
+          <div class="eyebrow">Three Imprints</div>
+          <div style="font-family:var(--font-display-en);font-size:48px;color:var(--text-primary);font-weight:300;font-style:italic;line-height:1.05">One family.<br>Three rooms.</div>
+        </div>
+        <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:0;border-top:1px solid var(--divider)">
+          <div style="padding:48px 32px 48px 0;border-right:1px solid var(--divider)">
+            <div style="font-family:var(--font-mono);font-size:11px;color:var(--violet);letter-spacing:0.2em;margin-bottom:24px">№ 01 · YORULOG</div>
+            <div style="font-family:var(--font-display-jp);font-size:32px;color:var(--text-primary);line-height:1.3;font-weight:400;margin-bottom:16px">夜職売上<br>CRM</div>
+            <div style="color:var(--text-muted);font-size:14px;line-height:1.7;margin-bottom:24px">For ホスト・キャスト. 今夜の同伴・指名・売上が一目で。</div>
+            <a style="color:var(--violet-ink);font-size:12px;border-bottom:1px solid var(--violet-ink);padding-bottom:2px;letter-spacing:0.04em;cursor:pointer">try yorulog →</a>
+          </div>
+          <div style="padding:48px 32px;border-right:1px solid var(--divider)">
+            <div style="font-family:var(--font-mono);font-size:11px;color:var(--violet-ink);letter-spacing:0.2em;margin-bottom:24px">№ 02 · NOMISHUGY</div>
+            <div style="font-family:var(--font-display-jp);font-size:32px;color:var(--text-primary);line-height:1.3;font-weight:400;margin-bottom:16px">大阪<br>バーポータル</div>
+            <div style="color:var(--text-muted);font-size:14px;line-height:1.7;margin-bottom:24px">バーを見つけ、飲み仲間と出会い、求人を見つける。</div>
+            <a style="color:var(--violet-ink);font-size:12px;border-bottom:1px solid var(--violet-ink);padding-bottom:2px;letter-spacing:0.04em;cursor:pointer">open nomishugy →</a>
+          </div>
+          <div style="padding:48px 0 48px 32px">
+            <div style="font-family:var(--font-mono);font-size:11px;color:var(--wine);letter-spacing:0.2em;margin-bottom:24px">№ 03 · COMMUNITY</div>
+            <div style="font-family:var(--font-display-jp);font-size:32px;color:var(--text-muted);line-height:1.3;font-weight:400;margin-bottom:16px">交流<br>掲示板</div>
+            <div style="color:var(--text-muted);font-size:14px;line-height:1.7;margin-bottom:24px">夜の街で働く・遊ぶ人の声が集まる場所。Coming soon.</div>
+            <a style="color:var(--text-muted);font-size:12px;letter-spacing:0.04em">— in preparation</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="artboard-label">Login · 1280×820</div>
+  <div class="artboard" style="width:1280px;height:820px">
+    <div class="noxa-root" style="width:100%;height:100%;display:grid;grid-template-columns:1fr 480px;position:relative;overflow:hidden">
+      <!-- left: editorial spread -->
+      <div style="border-right:1px solid var(--divider);padding:64px 80px;display:flex;flex-direction:column;justify-content:space-between;position:relative">
+        <div style="font-family:var(--font-display-en);font-size:22px;color:var(--text-primary);letter-spacing:0.18em;font-weight:300">NOXA</div>
+
+        <div style="max-width:560px">
+          <div class="eyebrow" style="margin-bottom:32px">A return.</div>
+          <div style="font-family:var(--font-display-en);font-size:96px;color:var(--text-primary);line-height:0.95;font-weight:300;letter-spacing:-0.03em;font-style:italic;margin:0 0 24px">Welcome,<br>again.</div>
+          <div style="height:1px;background:var(--divider);width:80px;margin:32px 0 24px"></div>
+          <div style="font-family:var(--font-display-jp);font-size:22px;color:var(--text-muted);line-height:1.75;font-weight:400">おかえりなさい。<br>夜は夜の文法を持っている。</div>
+        </div>
+
+        <div style="display:flex;gap:24px;color:var(--text-faint);font-size:11px;letter-spacing:0.04em">
+          <span>© 2026 NOXA</span><span>·</span><span>利用規約</span><span>·</span><span>プライバシー</span>
+        </div>
+      </div>
+
+      <!-- right: form, generous whitespace -->
+      <div style="padding:96px 56px;display:flex;flex-direction:column;justify-content:center;gap:32px">
+        <div>
+          <div class="eyebrow" style="margin-bottom:16px">Sign in</div>
+          <div style="font-family:var(--font-display-en);font-size:32px;color:var(--text-primary);font-weight:300;line-height:1.1;letter-spacing:-0.01em">NOXA アカウント</div>
+        </div>
+
+        <div style="display:flex;flex-direction:column;gap:24px">
+          <div>
+            <label style="color:var(--text-muted);font-size:11px;font-weight:400;letter-spacing:0.1em;text-transform:uppercase;display:block;margin-bottom:10px">Email</label>
+            <input value="rin@noxa.app" readonly style="width:100%;background:transparent;border:none;border-bottom:1px solid var(--violet);border-radius:0;padding:8px 0 10px;color:var(--text-primary);font-family:inherit;font-size:16px;outline:none" />
+          </div>
+          <div>
+            <label style="color:var(--text-muted);font-size:11px;font-weight:400;letter-spacing:0.1em;text-transform:uppercase;display:block;margin-bottom:10px">Password</label>
+            <input type="password" value="••••••••" readonly style="width:100%;background:transparent;border:none;border-bottom:1px solid var(--border-strong);border-radius:0;padding:8px 0 10px;color:var(--text-primary);font-family:inherit;font-size:16px;outline:none" />
+            <div style="text-align:right;margin-top:10px"><span style="color:var(--violet-ink);font-size:11px;letter-spacing:0.04em">パスワードを忘れた？</span></div>
+          </div>
+        </div>
+
+        <button style="background:var(--text-primary);color:var(--bg-base);border:none;border-radius:0;padding:18px;font-size:13px;font-weight:500;font-family:inherit;letter-spacing:0.12em;text-transform:uppercase;cursor:pointer">Sign in</button>
+
+        <div style="display:flex;align-items:center;gap:16px;margin:8px 0">
+          <div style="flex:1;height:1px;background:var(--divider)"></div>
+          <span style="color:var(--text-faint);font-size:10px;font-family:var(--font-mono);letter-spacing:0.2em">OR</span>
+          <div style="flex:1;height:1px;background:var(--divider)"></div>
+        </div>
+
+        <div style="display:flex;flex-direction:column;gap:12px">
+          <button style="background:transparent;color:var(--text-primary);border:1px solid var(--border-strong);border-radius:0;padding:14px;font-size:12px;font-family:inherit;cursor:pointer;letter-spacing:0.08em;text-transform:uppercase">Continue with Google</button>
+          <button style="background:transparent;color:var(--text-primary);border:1px solid var(--border-strong);border-radius:0;padding:14px;font-size:12px;font-family:inherit;cursor:pointer;letter-spacing:0.08em;text-transform:uppercase">Continue with Apple</button>
+        </div>
+
+        <div style="font-size:12px;color:var(--text-muted);letter-spacing:0.04em">New here? <span style="color:var(--violet-ink);border-bottom:1px solid var(--violet-ink);padding-bottom:1px">Open an account</span></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="artboard-label">Account Dashboard · 1280×900</div>
+  <div class="artboard" style="width:1280px;height:900px">
+    <div class="noxa-root" style="width:100%;height:100%;display:flex">
+      <!-- sidebar: thinner, all text -->
+      <div style="width:200px;border-right:1px solid var(--divider);padding:36px 24px;display:flex;flex-direction:column;gap:40px">
+        <div style="font-family:var(--font-display-en);font-size:20px;color:var(--text-primary);letter-spacing:0.18em;font-weight:300">NOXA</div>
+
+        <div style="display:flex;flex-direction:column;gap:8px">
+          <div class="eyebrow" style="margin-bottom:8px;font-size:9px;letter-spacing:0.28em">Account</div>
+          <div style="color:var(--text-primary);font-size:13px;letter-spacing:0.02em;padding:6px 0;border-left:2px solid var(--violet);padding-left:12px;margin-left:-14px">Dashboard</div>
+          <div style="color:var(--text-muted);font-size:13px;letter-spacing:0.02em;padding:6px 0">Plan</div>
+          <div style="color:var(--text-muted);font-size:13px;letter-spacing:0.02em;padding:6px 0">Credits</div>
+          <div style="color:var(--text-muted);font-size:13px;letter-spacing:0.02em;padding:6px 0">Billing</div>
+          <div style="color:var(--text-muted);font-size:13px;letter-spacing:0.02em;padding:6px 0">Team</div>
+        </div>
+        <div style="display:flex;flex-direction:column;gap:8px">
+          <div class="eyebrow" style="margin-bottom:8px;font-size:9px;letter-spacing:0.28em">Services</div>
+          <div style="color:var(--text-primary);font-size:12px;letter-spacing:0.06em;padding:4px 0;font-family:var(--font-mono)">— yorulog</div>
+          <div style="color:var(--text-primary);font-size:12px;letter-spacing:0.06em;padding:4px 0;font-family:var(--font-mono)">— nomishugy</div>
+          <div style="color:var(--text-faint);font-size:12px;letter-spacing:0.06em;padding:4px 0;font-family:var(--font-mono)">— community <span style="font-size:9px;opacity:0.6">SOON</span></div>
+        </div>
+
+        <div style="margin-top:auto;padding-top:24px;border-top:1px solid var(--divider)">
+          <div style="font-family:var(--font-display-en);font-size:22px;color:var(--text-primary);font-style:italic;font-weight:400">凛</div>
+          <div style="color:var(--text-muted);font-size:11px;margin-top:4px;letter-spacing:0.04em">rin@noxa.app</div>
+        </div>
+      </div>
+
+      <!-- main: 64px padding everywhere -->
+      <div style="flex:1;padding:64px 80px;background:var(--bg-base);overflow:auto">
+        <div class="eyebrow" style="margin-bottom:24px">Account · 2026.05.26</div>
+        <div style="display:flex;align-items:baseline;justify-content:space-between;margin-bottom:64px">
+          <h1 style="font-family:var(--font-display-en);font-size:56px;color:var(--text-primary);font-weight:300;margin:0;letter-spacing:-0.02em;font-style:italic">
+            こんばんは、<span style="color:var(--violet-ink);font-family:var(--font-display-jp);font-style:normal;font-weight:400">凛</span>。
+          </h1>
+          <a style="color:var(--text-muted);font-size:12px;letter-spacing:0.08em;text-transform:uppercase;border-bottom:1px solid var(--border-strong);padding-bottom:2px">Settings</a>
+        </div>
+
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:64px;margin-bottom:64px;padding-bottom:48px;border-bottom:1px solid var(--divider)">
+          <div>
+            <div class="eyebrow" style="margin-bottom:16px">Current plan</div>
+            <div style="font-family:var(--font-display-en);font-size:48px;color:var(--text-primary);font-weight:300;letter-spacing:-0.01em;margin-bottom:8px">NOXA Pro</div>
+            <div style="color:var(--text-muted);font-size:13px;line-height:1.7">¥4,800 / 月 · Annual<br>次回更新 2026 / 06 / 12</div>
+          </div>
+          <div>
+            <div class="eyebrow" style="margin-bottom:16px">Credits</div>
+            <div style="display:flex;align-items:baseline;gap:10px;margin-bottom:16px">
+              <span style="font-family:var(--font-display-en);font-size:72px;color:var(--violet-ink);font-weight:300;line-height:1">4,200</span>
+              <span style="color:var(--text-muted);font-size:14px">/ 5,000</span>
+            </div>
+            <div style="height:1px;background:var(--violet-ink);width:84%;margin-bottom:6px"></div>
+            <div style="height:1px;background:var(--divider)"></div>
+            <a style="color:var(--text-primary);font-size:12px;letter-spacing:0.08em;text-transform:uppercase;border-bottom:1px solid var(--text-primary);padding-bottom:2px;margin-top:16px;display:inline-block">Add credits</a>
+          </div>
+        </div>
+
+        <div class="eyebrow" style="margin-bottom:32px">Services</div>
+        <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:0;border-top:1px solid var(--divider)">
+          <div style="padding:32px 32px 32px 0;border-right:1px solid var(--divider)">
+            <div style="font-family:var(--font-mono);font-size:11px;color:var(--violet);letter-spacing:0.2em;margin-bottom:16px">№ 01 · YORULOG</div>
+            <div style="color:var(--text-primary);font-size:14px;margin-bottom:8px">夜職売上CRM</div>
+            <div style="font-family:var(--font-display-en);font-size:36px;color:var(--text-primary);font-weight:300;letter-spacing:-0.01em;font-style:italic;margin-bottom:8px">¥84,200</div>
+            <div style="color:var(--text-muted);font-size:11px;letter-spacing:0.1em;text-transform:uppercase">tonight · 営業中</div>
+          </div>
+          <div style="padding:32px;border-right:1px solid var(--divider)">
+            <div style="font-family:var(--font-mono);font-size:11px;color:var(--violet-ink);letter-spacing:0.2em;margin-bottom:16px">№ 02 · NOMISHUGY</div>
+            <div style="color:var(--text-primary);font-size:14px;margin-bottom:8px">大阪バーポータル</div>
+            <div style="font-family:var(--font-display-en);font-size:36px;color:var(--text-primary);font-weight:300;letter-spacing:-0.01em;font-style:italic;margin-bottom:8px">8 messages</div>
+            <div style="color:var(--text-muted);font-size:11px;letter-spacing:0.1em;text-transform:uppercase">unread · アクティブ</div>
+          </div>
+          <div style="padding:32px 0 32px 32px">
+            <div style="font-family:var(--font-mono);font-size:11px;color:var(--wine);letter-spacing:0.2em;margin-bottom:16px">№ 03 · COMMUNITY</div>
+            <div style="color:var(--text-muted);font-size:14px;margin-bottom:8px">交流掲示板</div>
+            <div style="font-family:var(--font-display-en);font-size:36px;color:var(--text-muted);font-weight:300;letter-spacing:-0.01em;font-style:italic;margin-bottom:8px">#142</div>
+            <div style="color:var(--text-faint);font-size:11px;letter-spacing:0.1em;text-transform:uppercase">waitlist · 近日</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+</body>
+</html>

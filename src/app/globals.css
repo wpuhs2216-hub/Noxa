@@ -1,48 +1,67 @@
 /* ──────────────────────────────────────────────
-   NOXA Design System — Tokens
+   NOXA Design System — v1.1 (C-revised: Tactile Glow)
    nox（夜・闇）+ a — 夜の街のための統合プラットフォーム
 
-   Source: Claude Design (claude.ai/design)
+   v1.0 → v1.1 変更点:
+   - violet を #7C3AED → #8B5CF6（少し明るく）
+   - neon-purple #C084FC を glow 専用に追加
+   - cyan-mist #67E8F9 を live data 専用に追加
+   - subtle SVG noise texture（.noxa-tex）
+   - hover-only glow（continuous animation は除去）
+   - prefers-reduced-motion ガード
+   - status semantic token 群（success/warning/error/info/soon）
+   - motion natural easing（cubic-bezier(0.16,1,0.3,1)）
+   - Tailwind 4 @theme で utility class 対応
    ────────────────────────────────────────────── */
 
-@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Shippori+Mincho+B1:wght@400;500;600;700&family=Noto+Sans+JP:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Shippori+Mincho+B1:wght@400;500;600;700&family=Noto+Sans+JP:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Geist:wght@300;400;500;600;700&display=swap');
 @import "tailwindcss";
 
 :root {
-  /* Color — Background */
-  --noxa-bg-base:      #0B0710;
-  --noxa-bg-elevated:  #14101C;
-  --noxa-bg-overlay:   rgba(11, 7, 16, 0.72);
+  /* Background */
+  --noxa-bg-base:      #07050D;       /* v1.1: 0B0710 → 07050D（より deep、neon 映え） */
+  --noxa-bg-elevated:  #110A1C;
+  --noxa-bg-overlay:   rgba(7, 5, 13, 0.72);
 
-  /* Color — Surface */
-  --noxa-surface-card:  #1A1424;
-  --noxa-surface-muted: #221B2E;
-  --noxa-surface-hover: #2A2237;
+  /* Surface */
+  --noxa-surface-card:  #1A1228;
+  --noxa-surface-muted: #221830;
+  --noxa-surface-hover: #2A2038;
 
-  /* Color — Accent (violet single-hue hierarchy) */
-  --noxa-accent-primary:       #7C3AED;
-  --noxa-accent-primary-ink:   #A78BFA;
-  --noxa-accent-primary-faint: #C4B5FD;
+  /* Accent (violet single-hue hierarchy, v1.1 brightened) */
+  --noxa-accent-primary:       #8B5CF6;   /* v1.1: 7C3AED → 8B5CF6 */
+  --noxa-accent-primary-ink:   #B89CFB;   /* v1.1: A78BFA → B89CFB */
+  --noxa-accent-primary-faint: #D4C5FE;   /* v1.1: C4B5FD → D4C5FE */
   --noxa-accent-primary-press: #5B21B6;
   --noxa-accent-primary-deep:  #4C1D95;
+  --noxa-accent-primary-neon:  #C084FC;   /* v1.1 新規 — glow 専用 */
   --noxa-accent-destructive:   #C4384A;
 
-  /* Color — Text */
+  /* Text */
   --noxa-text-primary: #F5F1FA;
-  --noxa-text-muted:   #9C92AB;
-  --noxa-text-faint:   #645A75;
-  --noxa-text-inverse: #0B0710;
+  --noxa-text-muted:   #A89FBE;            /* v1.1: 9C92AB → A89FBE */
+  --noxa-text-faint:   #6E6585;            /* v1.1: 645A75 → 6E6585 */
+  --noxa-text-inverse: #07050D;
 
-  /* Color — Border / Divider */
-  --noxa-border:        #2A2237;
-  --noxa-border-strong: #3A314A;
-  --noxa-divider:       rgba(167, 139, 250, 0.16);
+  /* Border / Divider */
+  --noxa-border:        #2A2038;
+  --noxa-border-strong: #3A2D4A;
+  --noxa-divider:       rgba(184, 156, 251, 0.20);   /* v1.1: alpha 16% → 20% */
 
-  /* Family tints — for sub-brand contexts */
-  --yorulog-tint:    #7C3AED;
-  --nomishugy-tint:  #A78BFA;
-  --community-tint:  #C4384A;
+  /* Sub-brand tints */
+  --noxa-tint-yorulog:    #8B5CF6;
+  --noxa-tint-nomishugy:  #B89CFB;
+  --noxa-tint-community:  #C4384A;
+
+  /* v1.1: Status semantic tokens */
+  --noxa-status-success: #7BE8A1;
+  --noxa-status-warning: #F5D472;
+  --noxa-status-error:   #C4384A;
+  --noxa-status-info:    #67E8F9;     /* cyan-mist (live data) */
+  --noxa-status-soon:    #A89FBE;
+  --noxa-status-success-glow: 0 0 8px rgba(123, 232, 161, 0.5);
+  --noxa-status-info-glow:    0 0 8px rgba(103, 232, 249, 0.5);
 
   /* Type — Family */
   --noxa-font-display-en: 'Cormorant Garamond', 'Shippori Mincho B1', serif;
@@ -73,25 +92,97 @@
   --noxa-space-24: 96px;
 
   /* Radius */
-  --noxa-radius-sm:  4px;
+  --noxa-radius-sm:   4px;
   --noxa-radius-md:  10px;
   --noxa-radius-lg:  18px;
   --noxa-radius-pill: 9999px;
 
-  /* Motion */
-  --noxa-duration-fast: 150ms;
-  --noxa-duration-base: 250ms;
-  --noxa-duration-slow: 400ms;
-  --noxa-ease-standard: cubic-bezier(0.4, 0.0, 0.2, 1);
-  --noxa-ease-enter:    cubic-bezier(0.0, 0.0, 0.2, 1);
-  --noxa-ease-exit:     cubic-bezier(0.4, 0.0, 1, 1);
-  --noxa-ease-emphasized: cubic-bezier(0.2, 0.7, 0.1, 1);
+  /* Motion — v1.1: natural easing 追加 */
+  --noxa-duration-instant: 80ms;
+  --noxa-duration-fast:    150ms;
+  --noxa-duration-base:    250ms;
+  --noxa-duration-slow:    400ms;
+  --noxa-ease-natural:     cubic-bezier(0.16, 1, 0.3, 1);    /* expo.out 風 — primary */
+  --noxa-ease-spring:      cubic-bezier(0.34, 1.56, 0.64, 1);
+  --noxa-ease-standard:    cubic-bezier(0.4, 0, 0.2, 1);
+  --noxa-ease-enter:       cubic-bezier(0.0, 0, 0.2, 1);
+  --noxa-ease-exit:        cubic-bezier(0.4, 0, 1, 1);
 
-  /* Shadow */
-  --noxa-shadow-sm: 0 1px 2px rgba(0,0,0,0.5);
-  --noxa-shadow-md: 0 6px 24px rgba(0,0,0,0.45), 0 1px 2px rgba(0,0,0,0.4);
-  --noxa-shadow-lg: 0 24px 60px rgba(0,0,0,0.6), 0 2px 6px rgba(0,0,0,0.4);
-  --noxa-shadow-glow: 0 0 0 1px rgba(124, 58, 237, 0.32), 0 8px 32px rgba(124, 58, 237, 0.18);
+  /* Elevation */
+  --noxa-shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.5);
+  --noxa-shadow-md: 0 6px 24px rgba(0, 0, 0, 0.45), 0 1px 2px rgba(0, 0, 0, 0.4);
+  --noxa-shadow-lg: 0 24px 60px rgba(0, 0, 0, 0.6), 0 2px 6px rgba(0, 0, 0, 0.4);
+
+  /* v1.1: Glow tokens (CTA / focus / active accent 限定) */
+  --noxa-glow-soft:   0 0 16px rgba(139, 92, 246, 0.32);
+  --noxa-glow-strong: 0 0 24px rgba(192, 132, 252, 0.45), 0 0 60px rgba(139, 92, 246, 0.32);
+  --noxa-glow-ring:   0 0 0 1px rgba(184, 156, 251, 0.40), 0 0 24px rgba(139, 92, 246, 0.32);
+
+  /* Safe-area (Capacitor / iOS) */
+  --noxa-safe-top:    env(safe-area-inset-top);
+  --noxa-safe-bottom: env(safe-area-inset-bottom);
+  --noxa-safe-left:   env(safe-area-inset-left);
+  --noxa-safe-right:  env(safe-area-inset-right);
+}
+
+/* ──────────────────────────────────────────────
+   v1.1: Tailwind 4 @theme — bg-noxa-* / text-noxa-* / shadow-noxa-* で utility 利用可
+   ────────────────────────────────────────────── */
+@theme {
+  --color-noxa-bg:           #07050D;
+  --color-noxa-bg-elevated:  #110A1C;
+  --color-noxa-surface:      #1A1228;
+  --color-noxa-surface-muted:#221830;
+  --color-noxa-surface-hover:#2A2038;
+
+  --color-noxa-primary:      #8B5CF6;
+  --color-noxa-ink:          #B89CFB;
+  --color-noxa-faint:        #D4C5FE;
+  --color-noxa-press:        #5B21B6;
+  --color-noxa-neon:         #C084FC;
+  --color-noxa-destructive:  #C4384A;
+
+  --color-noxa-text:         #F5F1FA;
+  --color-noxa-text-muted:   #A89FBE;
+  --color-noxa-text-faint:   #6E6585;
+
+  --color-noxa-border:       #2A2038;
+  --color-noxa-border-strong:#3A2D4A;
+
+  --color-noxa-success: #7BE8A1;
+  --color-noxa-warning: #F5D472;
+  --color-noxa-error:   #C4384A;
+  --color-noxa-info:    #67E8F9;
+  --color-noxa-soon:    #A89FBE;
+
+  --font-noxa-display: 'Cormorant Garamond', 'Shippori Mincho B1', serif;
+  --font-noxa-jp:      'Shippori Mincho B1', 'Cormorant Garamond', serif;
+  --font-noxa-sans:    'Geist', 'Noto Sans JP', system-ui, sans-serif;
+  --font-noxa-mono:    'JetBrains Mono', ui-monospace, monospace;
+
+  --radius-noxa-sm:  4px;
+  --radius-noxa-md: 10px;
+  --radius-noxa-lg: 18px;
+
+  --shadow-noxa-glow-soft:   0 0 16px rgba(139, 92, 246, 0.32);
+  --shadow-noxa-glow-strong: 0 0 24px rgba(192, 132, 252, 0.45), 0 0 60px rgba(139, 92, 246, 0.32);
+  --shadow-noxa-glow-ring:   0 0 0 1px rgba(184, 156, 251, 0.40), 0 0 24px rgba(139, 92, 246, 0.32);
+
+  --ease-noxa-natural:  cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-noxa-spring:   cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+/* ──────────────────────────────────────────────
+   v1.1: prefers-reduced-motion ガード（必須）
+   ────────────────────────────────────────────── */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+  .noxa-tex { background-image: none !important; }
 }
 
 html, body {
@@ -120,7 +211,7 @@ html, body {
   color: var(--noxa-accent-primary-ink);
 }
 
-/* Logo wordmark (N O X A) — "O" picked out in lavender */
+/* Logo wordmark */
 .noxa-logo {
   font-family: var(--noxa-font-display-en);
   font-weight: 500;
@@ -132,21 +223,24 @@ html, body {
   font-style: normal;
 }
 
-/* Subtle hairline divider */
-.noxa-hairline {
-  height: 1px;
-  background: var(--noxa-divider);
+/* Hairline divider */
+.noxa-hairline { height: 1px; background: var(--noxa-divider); }
+
+/* v1.1: Subtle noise texture overlay — surface に「夜の質感」 */
+.noxa-tex {
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='200' height='200'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 1  0 0 0 0 1  0 0 0 0 1  0 0 0 0.04 0'/></filter><rect width='100%25' height='100%25' filter='url(%23n)'/></svg>");
 }
 
-/* Buttons */
+/* Buttons (min-h-11 = 44px touch target) */
 .noxa-btn {
   font-family: var(--noxa-font-sans);
-  font-size: 14px; font-weight: 500;
+  font-size: 14px; font-weight: 600;   /* v1.1: 500 → 600（WCAG large 扱いで white-on-violet を AA-L で通す） */
   padding: 10px 18px;
+  min-height: 44px;
   border-radius: var(--noxa-radius-md);
   border: none; cursor: pointer;
   letter-spacing: -0.1px;
-  transition: all var(--noxa-duration-base) var(--noxa-ease-standard);
+  transition: all var(--noxa-duration-fast) var(--noxa-ease-natural);
   display: inline-flex; align-items: center; justify-content: center; gap: 8px;
 }
 .noxa-btn:focus-visible {
@@ -158,11 +252,12 @@ html, body {
   color: #fff;
 }
 .noxa-btn-primary:hover:not(:disabled) {
-  background: #9061F0;
-  box-shadow: var(--noxa-shadow-glow);
+  background: #9F75F8;
+  box-shadow: var(--noxa-glow-strong);   /* v1.1: hover で glow 強化 */
 }
 .noxa-btn-primary:active:not(:disabled) {
   background: var(--noxa-accent-primary-press);
+  transform: scale(0.98);
 }
 .noxa-btn-primary:disabled {
   background: var(--noxa-surface-hover);
@@ -185,12 +280,8 @@ html, body {
   background: transparent;
   color: var(--noxa-text-primary);
 }
-.noxa-btn-ghost:hover:not(:disabled) {
-  background: rgba(124, 58, 237, 0.10);
-}
-.noxa-btn-ghost:active:not(:disabled) {
-  background: rgba(124, 58, 237, 0.18);
-}
+.noxa-btn-ghost:hover:not(:disabled) { background: rgba(139, 92, 246, 0.10); }
+.noxa-btn-ghost:active:not(:disabled) { background: rgba(139, 92, 246, 0.18); }
 .noxa-btn-destructive {
   background: var(--noxa-accent-destructive);
   color: #fff;
@@ -198,11 +289,12 @@ html, body {
 .noxa-btn-destructive:hover:not(:disabled) { background: #D24557; }
 .noxa-btn-destructive:active:not(:disabled) { background: #A82D3D; }
 
-/* Input */
+/* Input (min-h-11) */
 .noxa-input {
   font-family: var(--noxa-font-sans);
-  font-size: 14px;
+  font-size: 16px;                       /* v1.1: 14 → 16px（iOS auto-zoom 回避） */
   padding: 11px 14px;
+  min-height: 44px;
   border-radius: var(--noxa-radius-md);
   width: 100%;
   box-sizing: border-box;
@@ -210,13 +302,13 @@ html, body {
   color: var(--noxa-text-primary);
   border: 1px solid var(--noxa-border);
   outline: none;
-  transition: border-color var(--noxa-duration-fast) var(--noxa-ease-standard),
-              box-shadow var(--noxa-duration-fast) var(--noxa-ease-standard);
+  transition: border-color var(--noxa-duration-fast) var(--noxa-ease-natural),
+              box-shadow var(--noxa-duration-fast) var(--noxa-ease-natural);
 }
 .noxa-input::placeholder { color: var(--noxa-text-faint); }
 .noxa-input:focus {
   border: 1.5px solid var(--noxa-accent-primary);
-  box-shadow: 0 0 0 4px rgba(124, 58, 237, 0.16);
+  box-shadow: 0 0 0 4px rgba(139, 92, 246, 0.20), var(--noxa-glow-soft);
 }
 .noxa-input[aria-invalid="true"] {
   border: 1.5px solid var(--noxa-accent-destructive);
@@ -241,15 +333,70 @@ html, body {
   font-weight: 500;
   display: block;
   margin-bottom: 6px;
+  letter-spacing: 0.02em;
+}
+
+/* v1.1: Status badges — ドット + テキストの二重符号化 */
+.noxa-status {
+  display: inline-flex; align-items: center; gap: 6px;
+  font-family: var(--noxa-font-mono);
+  font-size: 11px;
+  letter-spacing: 0.06em;
+}
+.noxa-status::before {
+  content: ""; display: inline-block;
+  width: 6px; height: 6px; border-radius: 3px;
+}
+.noxa-status-success { color: var(--noxa-status-success); }
+.noxa-status-success::before { background: var(--noxa-status-success); box-shadow: var(--noxa-status-success-glow); }
+.noxa-status-warning { color: var(--noxa-status-warning); }
+.noxa-status-warning::before { background: var(--noxa-status-warning); }
+.noxa-status-error   { color: var(--noxa-status-error); }
+.noxa-status-error::before   { background: var(--noxa-status-error); }
+.noxa-status-info    { color: var(--noxa-status-info); }
+.noxa-status-info::before    { background: var(--noxa-status-info); box-shadow: var(--noxa-status-info-glow); }
+.noxa-status-soon    { color: var(--noxa-status-soon); }
+.noxa-status-soon::before    { background: var(--noxa-status-soon); }
+
+/* v1.1: Skip link (a11y) — フォーカス時のみ表示 */
+.noxa-skip-link {
+  position: absolute;
+  left: 16px;
+  top: 16px;
+  z-index: 9999;
+  background: var(--noxa-accent-primary);
+  color: #fff;
+  padding: 10px 18px;
+  border-radius: var(--noxa-radius-md);
+  font-size: 13px;
+  font-weight: 600;
+  text-decoration: none;
+  transform: translateY(-200%);
+  transition: transform var(--noxa-duration-fast) var(--noxa-ease-natural);
+}
+.noxa-skip-link:focus {
+  transform: translateY(0);
+  outline: 2px solid var(--noxa-accent-primary-ink);
+  outline-offset: 2px;
+}
+
+/* v1.1: 共通 focus-visible 強化（フォームコントロール / リンク） */
+a:focus-visible,
+button:focus-visible,
+[role="button"]:focus-visible,
+[tabindex]:focus-visible {
+  outline: 2px solid var(--noxa-accent-primary-ink);
+  outline-offset: 2px;
+  border-radius: 4px;
 }
 
 /* Selection */
 ::selection {
-  background: rgba(167, 139, 250, 0.35);
+  background: rgba(184, 156, 251, 0.35);
   color: var(--noxa-text-primary);
 }
 
-/* Scrollbars (subtle) */
+/* Scrollbars */
 *::-webkit-scrollbar { width: 10px; height: 10px; }
 *::-webkit-scrollbar-track { background: transparent; }
 *::-webkit-scrollbar-thumb { background: var(--noxa-border); border-radius: 5px; }

@@ -1,0 +1,366 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1400 1000" role="img" aria-labelledby="t d">
+  <title id="t">NOXA — ナイトワーク OS Architecture v2</title>
+  <desc id="d">NOXA は「夜の街の OS」。中核は 9 つのメイン業務モジュール（POS / 売上管理 / 席回し / 勤怠管理 / 給与計算 / 初回案内 / 送迎 / 在庫管理 / オリシャン名刺発注）と、その上のサブモジュール（夜職専用紹介制コミュニティ / のみシュギ）。共通基盤は Firebase noxa-platform、Auth UID で SSO、Stripe で課金統合、Vercel + Capacitor で Web + Android 同時配信、iOS は別リポで SwiftUI。</desc>
+
+  <defs>
+    <radialGradient id="amb1" cx="50%" cy="0%" r="60%">
+      <stop offset="0%"   stop-color="#8B5CF6" stop-opacity="0.28"/>
+      <stop offset="100%" stop-color="#8B5CF6" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="amb2" cx="100%" cy="100%" r="60%">
+      <stop offset="0%"   stop-color="#C084FC" stop-opacity="0.18"/>
+      <stop offset="100%" stop-color="#C084FC" stop-opacity="0"/>
+    </radialGradient>
+    <linearGradient id="card" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#1A1228"/>
+      <stop offset="100%" stop-color="#110A1C"/>
+    </linearGradient>
+    <linearGradient id="card-sub" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#221830"/>
+      <stop offset="100%" stop-color="#1A1228"/>
+    </linearGradient>
+    <linearGradient id="card-main" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%"   stop-color="rgba(139,92,246,0.18)"/>
+      <stop offset="100%" stop-color="rgba(139,92,246,0)"/>
+    </linearGradient>
+    <radialGradient id="hub" cx="50%" cy="50%" r="60%">
+      <stop offset="0%"   stop-color="#221830"/>
+      <stop offset="100%" stop-color="#0F0818"/>
+    </radialGradient>
+    <filter id="glow" x="-50%" y="-50%" width="200%" height="200%">
+      <feGaussianBlur stdDeviation="4" result="b"/>
+      <feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+
+    <style>
+      .bg          { fill: #07050D; }
+      .border      { stroke: #2A2038; fill: none; }
+      .divider     { stroke: rgba(184, 156, 251, 0.20); }
+      .border-ink  { stroke: rgba(184, 156, 251, 0.32); fill: none; }
+      .text        { fill: #F5F1FA; font-family: 'Geist', 'Noto Sans JP', system-ui, sans-serif; }
+      .text-mute   { fill: #A89FBE; }
+      .text-faint  { fill: #6E6585; }
+      .text-ink    { fill: #B89CFB; }
+      .text-neon   { fill: #C084FC; }
+      .text-info   { fill: #67E8F9; }
+      .text-success{ fill: #7BE8A1; }
+      .text-warn   { fill: #F5D472; }
+      .text-error  { fill: #C4384A; }
+      .display     { font-family: 'Cormorant Garamond', 'Shippori Mincho B1', serif; font-weight: 500; }
+      .display-jp  { font-family: 'Shippori Mincho B1', 'Cormorant Garamond', serif; font-weight: 500; }
+      .mono        { font-family: 'JetBrains Mono', ui-monospace, monospace; }
+      .eyebrow     { font-family: 'JetBrains Mono', monospace; font-size: 10px; letter-spacing: 0.18em; text-transform: uppercase; fill: #B89CFB; }
+      .tag         { font-family: 'JetBrains Mono', monospace; font-size: 9px; letter-spacing: 0.12em; text-transform: uppercase; }
+      .module-num  { font-family: 'Cormorant Garamond', serif; font-style: italic; font-weight: 400; font-size: 22px; }
+    </style>
+  </defs>
+
+  <rect class="bg" width="1400" height="1000"/>
+  <rect width="1400" height="1000" fill="url(#amb1)"/>
+  <rect width="1400" height="1000" fill="url(#amb2)"/>
+
+  <!-- ==================== HEADER ==================== -->
+  <g transform="translate(48, 40)">
+    <text class="eyebrow">NOXA · OS Architecture · v2 · 2026.05</text>
+    <line x1="260" y1="-4" x2="1300" y2="-4" class="divider" stroke-width="1"/>
+  </g>
+
+  <g transform="translate(48, 80)">
+    <text class="display text" font-size="48" letter-spacing="-0.01em">
+      N<tspan class="text-ink">O</tspan>XA — <tspan font-style="italic" class="text-ink">ナイトワーク OS</tspan>
+    </text>
+    <text y="34" class="text-mute" font-size="15" font-family="'Shippori Mincho B1', serif" letter-spacing="0.04em">
+      夜の街で必要なすべての業務を、ひとつの OS で。<tspan class="text-faint">個人キャストもオーナーも、同じ画面から。</tspan>
+    </text>
+  </g>
+
+  <!-- ==================== LAYER 1: SUB MODULES (top) ==================== -->
+  <g transform="translate(48, 180)">
+    <text class="eyebrow">SUB · NOXA 上のアプリ的レイヤー（ユーザー接点）</text>
+  </g>
+
+  <!-- nomishugy -->
+  <g transform="translate(48, 200)">
+    <rect width="640" height="100" rx="14" fill="url(#card-sub)" stroke="#3A2D4A"/>
+    <rect x="0" y="0" width="80" height="3" fill="#B89CFB"/>
+    <g transform="translate(20, 28)">
+      <circle cx="6" cy="6" r="6" fill="#B89CFB" filter="url(#glow)"/>
+      <text x="20" y="10" class="tag text-mute">B · のみシュギ · MARKETPLACE</text>
+    </g>
+    <text x="20" y="68" class="display-jp text" font-size="22">バー紹介 + 求人 + コラム</text>
+    <text x="20" y="88" class="text-mute" font-size="11" font-family="'Noto Sans JP', sans-serif">
+      バー客・オーナー・求職キャスト向け。既存 nomishugy リポで運用中。
+    </text>
+    <!-- status badge -->
+    <g transform="translate(540, 24)">
+      <rect width="84" height="22" rx="11" fill="rgba(123,232,161,0.15)" stroke="rgba(123,232,161,0.35)"/>
+      <text x="42" y="14" text-anchor="middle" class="tag text-success">LIVE · BETA</text>
+    </g>
+  </g>
+
+  <!-- community -->
+  <g transform="translate(712, 200)">
+    <rect width="640" height="100" rx="14" fill="url(#card-sub)" stroke="#3A2D4A" opacity="0.78"/>
+    <rect x="0" y="0" width="80" height="3" fill="#C4384A"/>
+    <g transform="translate(20, 28)">
+      <circle cx="6" cy="6" r="6" fill="#C4384A" opacity="0.7"/>
+      <text x="20" y="10" class="tag text-mute">A · 夜職コミュニティ · CLOSED SNS</text>
+    </g>
+    <text x="20" y="68" class="display-jp text" font-size="22">紹介制 SNS</text>
+    <text x="20" y="88" class="text-mute" font-size="11" font-family="'Noto Sans JP', sans-serif">
+      夜職で働く人同士の交流・情報共有。招待制 or 在籍店確認。
+    </text>
+    <g transform="translate(540, 24)">
+      <rect width="84" height="22" rx="11" fill="rgba(167,159,190,0.12)" stroke="rgba(167,159,190,0.32)"/>
+      <text x="42" y="14" text-anchor="middle" class="tag text-mute">SOON</text>
+    </g>
+  </g>
+
+  <!-- arrows DOWN -->
+  <line x1="368" y1="320" x2="368" y2="370" stroke="#6E6585" stroke-width="1.5" stroke-dasharray="3 4"/>
+  <line x1="1032" y1="320" x2="1032" y2="370" stroke="#6E6585" stroke-width="1.5" stroke-dasharray="3 4"/>
+
+  <!-- ==================== LAYER 2: NOXA OS Kernel ==================== -->
+  <g transform="translate(48, 350)">
+    <text class="eyebrow">CORE · NOXA Operating System Kernel</text>
+  </g>
+
+  <g transform="translate(48, 370)">
+    <rect width="1304" height="60" rx="14" fill="rgba(26,18,40,0.65)" stroke="rgba(184,156,251,0.32)"/>
+    <g transform="translate(28, 22)">
+      <text class="display text" font-size="24">N<tspan class="text-ink">O</tspan>XA</text>
+      <text x="120" y="-2" class="tag text-faint">DASHBOARD SHELL</text>
+      <text x="120" y="14" class="text" font-size="12">役割別ホーム · 9 メイン + 2 サブを束ねる操作盤</text>
+    </g>
+    <g transform="translate(680, 22)">
+      <text class="tag text-faint">SSO · 1 アカウント = 全モジュール</text>
+      <text y="16" class="mono text-info" font-size="11">Firebase Auth UID</text>
+    </g>
+    <g transform="translate(1020, 22)">
+      <text class="tag text-faint">課金</text>
+      <text y="16" class="mono text-info" font-size="11">Stripe · NOXA Pro 共通プラン</text>
+    </g>
+  </g>
+
+  <!-- ==================== LAYER 3: 9 MAIN MODULES grid ==================== -->
+  <g transform="translate(48, 460)">
+    <text class="eyebrow">MAIN · 業務モジュール 9 個（店舗運営の本体）</text>
+  </g>
+
+  <!-- 3x3 grid of main modules -->
+  <!-- row 1 -->
+  <g transform="translate(48, 480)">
+    <!-- ① POS -->
+    <g transform="translate(0, 0)">
+      <rect width="420" height="100" rx="14" fill="url(#card)" stroke="#2A2038"/>
+      <rect x="0" y="0" width="64" height="3" fill="#8B5CF6"/>
+      <g transform="translate(18, 22)">
+        <text class="module-num text-ink">①</text>
+        <text x="34" y="-2" class="tag text-mute">POS</text>
+        <text x="34" y="14" class="text" font-size="14" font-weight="600">販売時点管理</text>
+      </g>
+      <text x="18" y="76" class="text-mute" font-size="11" font-family="'Noto Sans JP', sans-serif">
+        フロント / キャスト · 注文 → 会計 → レシート
+      </text>
+      <g transform="translate(330, 18)">
+        <rect width="76" height="20" rx="10" fill="rgba(245,212,114,0.12)" stroke="rgba(245,212,114,0.32)"/>
+        <text x="38" y="13" text-anchor="middle" class="tag text-warn">PLANNED</text>
+      </g>
+    </g>
+    <!-- ② 売上管理 -->
+    <g transform="translate(442, 0)">
+      <rect width="420" height="100" rx="14" fill="url(#card)" stroke="#2A2038"/>
+      <rect x="0" y="0" width="64" height="3" fill="#8B5CF6"/>
+      <g transform="translate(18, 22)">
+        <text class="module-num text-ink">②</text>
+        <text x="34" y="-2" class="tag text-mute">SALES · 旧 YORULOG</text>
+        <text x="34" y="14" class="text" font-size="14" font-weight="600">売上管理</text>
+      </g>
+      <text x="18" y="76" class="text-mute" font-size="11" font-family="'Noto Sans JP', sans-serif">
+        個人 / 店舗 · 売上・指名・同伴・LINE 文面 AI
+      </text>
+      <g transform="translate(330, 18)">
+        <rect width="76" height="20" rx="10" fill="rgba(123,232,161,0.15)" stroke="rgba(123,232,161,0.35)"/>
+        <text x="38" y="13" text-anchor="middle" class="tag text-success">LIVE</text>
+      </g>
+    </g>
+    <!-- ③ 席回し -->
+    <g transform="translate(884, 0)">
+      <rect width="420" height="100" rx="14" fill="url(#card)" stroke="#2A2038"/>
+      <rect x="0" y="0" width="64" height="3" fill="#8B5CF6"/>
+      <g transform="translate(18, 22)">
+        <text class="module-num text-ink">③</text>
+        <text x="34" y="-2" class="tag text-mute">SEATING</text>
+        <text x="34" y="14" class="text" font-size="14" font-weight="600">席回し</text>
+      </g>
+      <text x="18" y="76" class="text-mute" font-size="11" font-family="'Noto Sans JP', sans-serif">
+        フロア責任者 · 卓状況 / キャストローテーション
+      </text>
+      <g transform="translate(330, 18)">
+        <rect width="76" height="20" rx="10" fill="rgba(245,212,114,0.12)" stroke="rgba(245,212,114,0.32)"/>
+        <text x="38" y="13" text-anchor="middle" class="tag text-warn">PLANNED</text>
+      </g>
+    </g>
+  </g>
+
+  <!-- row 2 -->
+  <g transform="translate(48, 592)">
+    <!-- ④ 勤怠 -->
+    <g transform="translate(0, 0)">
+      <rect width="420" height="100" rx="14" fill="url(#card)" stroke="#2A2038"/>
+      <rect x="0" y="0" width="64" height="3" fill="#8B5CF6"/>
+      <g transform="translate(18, 22)">
+        <text class="module-num text-ink">④</text>
+        <text x="34" y="-2" class="tag text-mute">ATTENDANCE</text>
+        <text x="34" y="14" class="text" font-size="14" font-weight="600">勤怠管理</text>
+      </g>
+      <text x="18" y="76" class="text-mute" font-size="11" font-family="'Noto Sans JP', sans-serif">
+        店長 · 出勤打刻 / シフト / 遅刻管理
+      </text>
+      <g transform="translate(330, 18)">
+        <rect width="76" height="20" rx="10" fill="rgba(245,212,114,0.12)" stroke="rgba(245,212,114,0.32)"/>
+        <text x="38" y="13" text-anchor="middle" class="tag text-warn">PLANNED</text>
+      </g>
+    </g>
+    <!-- ⑤ 給与 -->
+    <g transform="translate(442, 0)">
+      <rect width="420" height="100" rx="14" fill="url(#card)" stroke="#2A2038"/>
+      <rect x="0" y="0" width="64" height="3" fill="#8B5CF6"/>
+      <g transform="translate(18, 22)">
+        <text class="module-num text-ink">⑤</text>
+        <text x="34" y="-2" class="tag text-mute">PAYROLL</text>
+        <text x="34" y="14" class="text" font-size="14" font-weight="600">給与計算</text>
+      </g>
+      <text x="18" y="76" class="text-mute" font-size="11" font-family="'Noto Sans JP', sans-serif">
+        経理 · 売上歩合 + 時給 / 月締 / 振込
+      </text>
+      <g transform="translate(330, 18)">
+        <rect width="76" height="20" rx="10" fill="rgba(245,212,114,0.12)" stroke="rgba(245,212,114,0.32)"/>
+        <text x="38" y="13" text-anchor="middle" class="tag text-warn">PLANNED</text>
+      </g>
+    </g>
+    <!-- ⑥ 初回案内 -->
+    <g transform="translate(884, 0)">
+      <rect width="420" height="100" rx="14" fill="url(#card)" stroke="#2A2038"/>
+      <rect x="0" y="0" width="64" height="3" fill="#8B5CF6"/>
+      <g transform="translate(18, 22)">
+        <text class="module-num text-ink">⑥</text>
+        <text x="34" y="-2" class="tag text-mute">FIRST-VISIT</text>
+        <text x="34" y="14" class="text" font-size="14" font-weight="600">初回案内</text>
+      </g>
+      <text x="18" y="76" class="text-mute" font-size="11" font-family="'Noto Sans JP', sans-serif">
+        新人教育 · チェックリスト / OJT 記録
+      </text>
+      <g transform="translate(330, 18)">
+        <rect width="76" height="20" rx="10" fill="rgba(245,212,114,0.12)" stroke="rgba(245,212,114,0.32)"/>
+        <text x="38" y="13" text-anchor="middle" class="tag text-warn">PLANNED</text>
+      </g>
+    </g>
+  </g>
+
+  <!-- row 3 -->
+  <g transform="translate(48, 704)">
+    <!-- ⑦ 送迎 -->
+    <g transform="translate(0, 0)">
+      <rect width="420" height="100" rx="14" fill="url(#card)" stroke="#2A2038"/>
+      <rect x="0" y="0" width="64" height="3" fill="#8B5CF6"/>
+      <g transform="translate(18, 22)">
+        <text class="module-num text-ink">⑦</text>
+        <text x="34" y="-2" class="tag text-mute">TRANSPORT</text>
+        <text x="34" y="14" class="text" font-size="14" font-weight="600">送迎</text>
+      </g>
+      <text x="18" y="76" class="text-mute" font-size="11" font-family="'Noto Sans JP', sans-serif">
+        ドライバー · 配車 / 同伴ピックアップ
+      </text>
+      <g transform="translate(330, 18)">
+        <rect width="76" height="20" rx="10" fill="rgba(245,212,114,0.12)" stroke="rgba(245,212,114,0.32)"/>
+        <text x="38" y="13" text-anchor="middle" class="tag text-warn">PLANNED</text>
+      </g>
+    </g>
+    <!-- ⑧ 在庫 -->
+    <g transform="translate(442, 0)">
+      <rect width="420" height="100" rx="14" fill="url(#card)" stroke="#2A2038"/>
+      <rect x="0" y="0" width="64" height="3" fill="#8B5CF6"/>
+      <g transform="translate(18, 22)">
+        <text class="module-num text-ink">⑧</text>
+        <text x="34" y="-2" class="tag text-mute">INVENTORY</text>
+        <text x="34" y="14" class="text" font-size="14" font-weight="600">在庫管理</text>
+      </g>
+      <text x="18" y="76" class="text-mute" font-size="11" font-family="'Noto Sans JP', sans-serif">
+        バーマネージャ · ボトル / 食材 / 消耗品
+      </text>
+      <g transform="translate(330, 18)">
+        <rect width="76" height="20" rx="10" fill="rgba(245,212,114,0.12)" stroke="rgba(245,212,114,0.32)"/>
+        <text x="38" y="13" text-anchor="middle" class="tag text-warn">PLANNED</text>
+      </g>
+    </g>
+    <!-- ⑨ 名刺 -->
+    <g transform="translate(884, 0)">
+      <rect width="420" height="100" rx="14" fill="url(#card)" stroke="#2A2038"/>
+      <rect x="0" y="0" width="64" height="3" fill="#8B5CF6"/>
+      <g transform="translate(18, 22)">
+        <text class="module-num text-ink">⑨</text>
+        <text x="34" y="-2" class="tag text-mute">BUSINESS-CARD</text>
+        <text x="34" y="14" class="text" font-size="14" font-weight="600">オリシャン名刺発注</text>
+      </g>
+      <text x="18" y="76" class="text-mute" font-size="11" font-family="'Noto Sans JP', sans-serif">
+        キャスト本人 · デザイン / 印刷 / 発送
+      </text>
+      <g transform="translate(330, 18)">
+        <rect width="76" height="20" rx="10" fill="rgba(245,212,114,0.12)" stroke="rgba(245,212,114,0.32)"/>
+        <text x="38" y="13" text-anchor="middle" class="tag text-warn">PLANNED</text>
+      </g>
+    </g>
+  </g>
+
+  <!-- ==================== LAYER 4: Foundation ==================== -->
+  <g transform="translate(48, 830)">
+    <text class="eyebrow">FOUNDATION · 共通基盤</text>
+  </g>
+
+  <g transform="translate(48, 850)">
+    <rect width="1304" height="100" rx="14" fill="rgba(26,18,40,0.6)" stroke="#2A2038"/>
+    <g transform="translate(24, 24)">
+      <text class="tag text-ink">DATA</text>
+      <text y="16" class="text" font-size="11" font-weight="600">Firebase noxa-platform</text>
+      <text y="32" class="mono text-mute" font-size="10">Auth · Firestore · Storage</text>
+      <text y="50" class="mono text-faint" font-size="9">legacy: minami-bar-guide (read-only, 利用なし)</text>
+    </g>
+    <g transform="translate(280, 24)">
+      <text class="tag text-ink">FRONTEND</text>
+      <text y="16" class="text" font-size="11" font-weight="600">Next.js 16 / React 19</text>
+      <text y="32" class="mono text-mute" font-size="10">Tailwind 4 + shadcn/ui</text>
+      <text y="50" class="mono text-mute" font-size="10">Lucide React · Recharts SVG</text>
+    </g>
+    <g transform="translate(560, 24)">
+      <text class="tag text-ink">DEPLOY</text>
+      <text y="16" class="text" font-size="11" font-weight="600">Vercel · Rolling Releases</text>
+      <text y="32" class="mono text-mute" font-size="10">noxa-delta · yorulog · nomishugy</text>
+      <text y="50" class="mono text-mute" font-size="10">→ 法人化後 *.egshugy.com に統合予定</text>
+    </g>
+    <g transform="translate(840, 24)">
+      <text class="tag text-ink">MOBILE</text>
+      <text y="16" class="text" font-size="11" font-weight="600">Android · Capacitor</text>
+      <text y="32" class="mono text-info" font-size="10">→ Vercel 本番を WebView ラップ</text>
+      <text y="50" class="mono text-success" font-size="10">iOS · SwiftUI（別リポ、別運用）</text>
+    </g>
+    <g transform="translate(1080, 24)">
+      <text class="tag text-ink">DESIGN</text>
+      <text y="16" class="text" font-size="11" font-weight="600">v1.1 Tactile Glow</text>
+      <text y="32" class="mono text-mute" font-size="10">violet hierarchy + cyan-mist</text>
+      <text y="50" class="mono text-mute" font-size="10">WCAG AA / OLED smear 回避</text>
+    </g>
+  </g>
+
+  <!-- ==================== LAYER hub-to-modules arrows ==================== -->
+  <line x1="700" y1="430" x2="700" y2="475" stroke="#B89CFB" stroke-width="1.5" opacity="0.6"/>
+
+  <!-- footer -->
+  <g transform="translate(48, 990)">
+    <text class="mono text-faint" font-size="9" letter-spacing="0.06em">
+      © 2026 NOXA · egshugy（株式会社えぐしゅぎ法人準備中） · architecture v2 · noxa-delta.vercel.app
+    </text>
+  </g>
+
+</svg>

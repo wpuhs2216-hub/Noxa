@@ -1,0 +1,292 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 900" role="img" aria-labelledby="t d">
+  <title id="t">NOXA Architecture — 夜の街のための統合プラットフォーム v1.1</title>
+  <desc id="d">NOXA は umbrella ブランド。yorulog（夜職売上 CRM）、nomishugy（バーポータル + マッチング + 求人）、NOXA Community（掲示板、近日公開）の 3 サブブランドを束ね、Firebase（noxa-platform プロジェクト、旧 minami-bar-guide から移行済み）でアカウントとデータを共有する構造。技術スタックは Next.js 16 + React 19 + Tailwind 4 + shadcn/ui で統一、yorulog の Android は Capacitor で本番 Vercel を WebView ラップ、iOS は別リポで SwiftUI 実装。</desc>
+
+  <defs>
+    <!-- ambient violet glow -->
+    <radialGradient id="g-amb-1" cx="50%" cy="0%" r="60%">
+      <stop offset="0%"   stop-color="#8B5CF6" stop-opacity="0.28"/>
+      <stop offset="100%" stop-color="#8B5CF6" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="g-amb-2" cx="0%" cy="100%" r="60%">
+      <stop offset="0%"   stop-color="#C084FC" stop-opacity="0.18"/>
+      <stop offset="100%" stop-color="#C084FC" stop-opacity="0"/>
+    </radialGradient>
+    <!-- card gradient -->
+    <linearGradient id="g-card" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#1A1228"/>
+      <stop offset="100%" stop-color="#110A1C"/>
+    </linearGradient>
+    <!-- noxa center hub gradient -->
+    <radialGradient id="g-hub" cx="50%" cy="50%" r="60%">
+      <stop offset="0%"   stop-color="#221830"/>
+      <stop offset="100%" stop-color="#0F0818"/>
+    </radialGradient>
+    <!-- glow filter -->
+    <filter id="f-glow" x="-50%" y="-50%" width="200%" height="200%">
+      <feGaussianBlur stdDeviation="6" result="b"/>
+      <feMerge>
+        <feMergeNode in="b"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+    <filter id="f-glow-soft" x="-50%" y="-50%" width="200%" height="200%">
+      <feGaussianBlur stdDeviation="3" result="b"/>
+      <feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+    <!-- arrow markers -->
+    <marker id="m-arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#B89CFB"/>
+    </marker>
+    <marker id="m-arrow-mute" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#6E6585"/>
+    </marker>
+
+    <style>
+      .bg-base    { fill: #07050D; }
+      .surface    { fill: url(#g-card); stroke: #2A2038; stroke-width: 1; }
+      .border     { stroke: #2A2038; fill: none; }
+      .divider    { stroke: rgba(184, 156, 251, 0.20); }
+      .text       { fill: #F5F1FA; font-family: 'Geist', 'Noto Sans JP', system-ui, sans-serif; }
+      .text-mute  { fill: #A89FBE; }
+      .text-faint { fill: #6E6585; }
+      .text-ink   { fill: #B89CFB; }
+      .text-neon  { fill: #C084FC; }
+      .text-info  { fill: #67E8F9; }
+      .text-success { fill: #7BE8A1; }
+      .display    { font-family: 'Cormorant Garamond', 'Shippori Mincho B1', serif; font-weight: 500; }
+      .display-jp { font-family: 'Shippori Mincho B1', 'Cormorant Garamond', serif; font-weight: 500; }
+      .mono       { font-family: 'JetBrains Mono', ui-monospace, monospace; }
+      .eyebrow    { font-family: 'JetBrains Mono', monospace; font-size: 10px; letter-spacing: 0.18em; text-transform: uppercase; fill: #B89CFB; }
+      .tag        { font-family: 'JetBrains Mono', monospace; font-size: 9px; letter-spacing: 0.12em; text-transform: uppercase; }
+    </style>
+  </defs>
+
+  <!-- background -->
+  <rect class="bg-base" width="1200" height="900"/>
+  <rect width="1200" height="900" fill="url(#g-amb-1)"/>
+  <rect width="1200" height="900" fill="url(#g-amb-2)"/>
+
+  <!-- title row -->
+  <g transform="translate(40, 36)">
+    <text class="eyebrow">Architecture · v1.1 · 2026</text>
+    <line x1="220" y1="-4" x2="1120" y2="-4" class="divider" stroke-width="1"/>
+  </g>
+
+  <g transform="translate(40, 70)">
+    <text class="display text" font-size="44" letter-spacing="-0.01em">
+      N<tspan class="text-ink">O</tspan>XA — <tspan class="text-ink" font-style="italic">夜の街のための</tspan>統合プラットフォーム
+    </text>
+    <text y="32" class="text-mute" font-size="14" font-family="'Shippori Mincho B1', serif" letter-spacing="0.04em">
+      ナイトワーカーと夜の街オーナーと夜遊びユーザーを、ひとつのアカウントで結ぶ。
+    </text>
+  </g>
+
+  <!-- =====================================================
+       Center hub: NOXA account / Firebase
+       ===================================================== -->
+  <g transform="translate(600, 460)">
+    <!-- outer ring -->
+    <circle r="180" fill="url(#g-hub)" stroke="rgba(184,156,251,0.32)" stroke-width="1.5"/>
+    <circle r="180" fill="none" stroke="#C084FC" stroke-width="0.5" stroke-dasharray="2 4" opacity="0.5"/>
+
+    <!-- inner content -->
+    <text y="-100" text-anchor="middle" class="eyebrow">NOXA ACCOUNT · HUB</text>
+    <text y="-50" text-anchor="middle" class="display text" font-size="64" letter-spacing="0.04em">
+      N<tspan class="text-ink" filter="url(#f-glow-soft)">O</tspan>XA
+    </text>
+    <text y="-12" text-anchor="middle" class="text-mute" font-size="13" font-family="'Shippori Mincho B1', serif">
+      Nightfall, refined.
+    </text>
+
+    <!-- divider -->
+    <line x1="-100" y1="6" x2="100" y2="6" class="divider"/>
+
+    <!-- Firebase chip -->
+    <g transform="translate(-100, 24)">
+      <rect width="200" height="40" rx="10" fill="#221830" stroke="#3A2D4A"/>
+      <text x="100" y="17" text-anchor="middle" class="tag text-faint">SHARED · Firebase</text>
+      <text x="100" y="32" text-anchor="middle" class="mono text-ink" font-size="11">noxa-platform</text>
+    </g>
+
+    <!-- responsibilities -->
+    <g transform="translate(-100, 80)">
+      <text class="tag text-faint">RESPONSIBILITY</text>
+      <text y="18" class="text" font-size="12">Auth (1 アカ = 全サービス)</text>
+      <text y="36" class="text" font-size="12">Firestore (共通データ)</text>
+      <text y="54" class="text" font-size="12">課金・課金プラン共有</text>
+    </g>
+  </g>
+
+  <!-- =====================================================
+       Three sub-brands (positioned in triangle around hub)
+       ===================================================== -->
+
+  <!-- yorulog (top-left) -->
+  <g transform="translate(80, 240)">
+    <rect class="surface" width="320" height="180" rx="18"/>
+    <!-- top accent bar -->
+    <rect x="0" y="0" width="80" height="3" fill="#8B5CF6"/>
+    <g transform="translate(22, 26)">
+      <circle cx="6" cy="6" r="6" fill="#8B5CF6" filter="url(#f-glow-soft)"/>
+      <text x="20" y="10" class="tag text-mute">YORULOG · OPERATIONS CRM</text>
+    </g>
+    <text x="22" y="74" class="display-jp text" font-size="22">夜職売上 CRM</text>
+    <text x="22" y="98" class="text-mute" font-size="12" font-family="'Noto Sans JP', sans-serif">
+      ホスト・キャストの今夜の売上・指名
+    </text>
+    <text x="22" y="116" class="text-mute" font-size="12" font-family="'Noto Sans JP', sans-serif">
+      ・同伴・LINE 文面を一元管理
+    </text>
+    <line x1="22" y1="132" x2="298" y2="132" class="divider"/>
+    <g transform="translate(22, 148)">
+      <text class="tag text-mute">USER</text>
+      <text x="48" class="text" font-size="11">キャスト · ホスト · 店舗オーナー</text>
+    </g>
+    <g transform="translate(22, 162)">
+      <text class="tag text-mute">SHIP</text>
+      <text x="48" class="mono text-info" font-size="11">Web · Android (Capacitor) · iOS (SwiftUI)</text>
+    </g>
+  </g>
+
+  <!-- nomishugy (top-right) -->
+  <g transform="translate(800, 240)">
+    <rect class="surface" width="320" height="180" rx="18"/>
+    <rect x="0" y="0" width="80" height="3" fill="#B89CFB"/>
+    <g transform="translate(22, 26)">
+      <circle cx="6" cy="6" r="6" fill="#B89CFB" filter="url(#f-glow-soft)"/>
+      <text x="20" y="10" class="tag text-mute">NOMISHUGY · MARKETPLACE</text>
+    </g>
+    <text x="22" y="74" class="display-jp text" font-size="22">大阪バーポータル</text>
+    <text x="22" y="98" class="text-mute" font-size="12" font-family="'Noto Sans JP', sans-serif">
+      バーを見つけ、飲み仲間と出会い、
+    </text>
+    <text x="22" y="116" class="text-mute" font-size="12" font-family="'Noto Sans JP', sans-serif">
+      バー求人を見つける。
+    </text>
+    <line x1="22" y1="132" x2="298" y2="132" class="divider"/>
+    <g transform="translate(22, 148)">
+      <text class="tag text-mute">USER</text>
+      <text x="48" class="text" font-size="11">バー客 · オーナー · 求職キャスト</text>
+    </g>
+    <g transform="translate(22, 162)">
+      <text class="tag text-mute">SHIP</text>
+      <text x="48" class="mono text-info" font-size="11">Web (Next.js, mobile-first)</text>
+    </g>
+  </g>
+
+  <!-- community (bottom) -->
+  <g transform="translate(440, 720)">
+    <rect class="surface" width="320" height="140" rx="18" opacity="0.78"/>
+    <rect x="0" y="0" width="80" height="3" fill="#C4384A"/>
+    <g transform="translate(22, 26)">
+      <circle cx="6" cy="6" r="6" fill="#C4384A" opacity="0.7"/>
+      <text x="20" y="10" class="tag text-mute">COMMUNITY · SOCIAL</text>
+    </g>
+    <text x="22" y="74" class="display-jp text" font-size="22">交流掲示板</text>
+    <text x="22" y="98" class="text-mute" font-size="12" font-family="'Noto Sans JP', sans-serif">
+      夜の街で働く・遊ぶ人の声。
+    </text>
+    <text x="22" y="116" class="text-faint mono" font-size="11">— Coming soon (waitlist #142)</text>
+  </g>
+
+  <!-- =====================================================
+       Connection lines hub <-> sub-brands
+       ===================================================== -->
+  <!-- yorulog -> hub -->
+  <line x1="400" y1="330" x2="425" y2="430" class="border" stroke="#B89CFB" stroke-width="1.5" stroke-dasharray="0" marker-end="url(#m-arrow)"/>
+  <!-- nomishugy -> hub -->
+  <line x1="800" y1="330" x2="775" y2="430" class="border" stroke="#B89CFB" stroke-width="1.5" marker-end="url(#m-arrow)"/>
+  <!-- community -> hub -->
+  <line x1="600" y1="720" x2="600" y2="640" class="border" stroke="#6E6585" stroke-width="1.2" stroke-dasharray="4 4" marker-end="url(#m-arrow-mute)"/>
+
+  <!-- Connection labels -->
+  <g transform="translate(380, 380)" text-anchor="end">
+    <text class="tag text-ink">SSO · DATA</text>
+  </g>
+  <g transform="translate(820, 380)">
+    <text class="tag text-ink">SSO · DATA</text>
+  </g>
+  <g transform="translate(620, 690)">
+    <text class="tag text-faint">PLANNED</text>
+  </g>
+
+  <!-- =====================================================
+       Tech stack rail (bottom)
+       ===================================================== -->
+  <g transform="translate(40, 740)">
+    <text class="tag text-faint">SHARED TECH STACK</text>
+    <g transform="translate(0, 14)">
+      <rect width="320" height="130" rx="14" fill="rgba(26,18,40,0.6)" stroke="#2A2038"/>
+      <g transform="translate(16, 22)">
+        <text class="text" font-size="11" font-weight="600">Frontend</text>
+        <text y="18" class="mono text-mute" font-size="10">Next.js 16 (App Router)</text>
+        <text y="34" class="mono text-mute" font-size="10">React 19 + TypeScript</text>
+        <text y="50" class="mono text-mute" font-size="10">Tailwind CSS 4 + shadcn/ui</text>
+        <text y="66" class="mono text-mute" font-size="10">Lucide React (icons)</text>
+        <text y="86" class="text" font-size="11" font-weight="600">Hosting</text>
+        <text y="104" class="mono text-mute" font-size="10">Vercel · Rolling Releases</text>
+      </g>
+    </g>
+  </g>
+
+  <g transform="translate(840, 740)">
+    <text class="tag text-faint">YORULOG MOBILE STRATEGY</text>
+    <g transform="translate(0, 14)">
+      <rect width="320" height="130" rx="14" fill="rgba(26,18,40,0.6)" stroke="#2A2038"/>
+      <g transform="translate(16, 22)">
+        <text class="text" font-size="11" font-weight="600">Android</text>
+        <text y="18" class="mono text-info" font-size="10">Capacitor + WebView</text>
+        <text y="32" class="mono text-mute" font-size="10">→ yorulog.vercel.app をラップ</text>
+        <text y="48" class="mono text-mute" font-size="10">→ Google Play 配信</text>
+        <text y="68" class="text" font-size="11" font-weight="600">iOS</text>
+        <text y="86" class="mono text-success" font-size="10">SwiftUI ネイティブ（別リポ）</text>
+        <text y="100" class="mono text-mute" font-size="10">→ yorulog-ios（別運用）</text>
+        <text y="118" class="text-faint" font-size="9">※ 本セッションでは未編集</text>
+      </g>
+    </g>
+  </g>
+
+  <!-- side note: design system -->
+  <g transform="translate(40, 460)">
+    <rect width="200" height="170" rx="14" fill="rgba(26,18,40,0.5)" stroke="#2A2038"/>
+    <g transform="translate(16, 22)">
+      <text class="tag text-ink">DESIGN SYSTEM</text>
+      <text y="22" class="display text" font-size="20">v1.1</text>
+      <line x1="0" y1="32" x2="170" y2="32" class="divider"/>
+      <text y="50" class="text" font-size="11">Tactile Glow (C-revised)</text>
+      <text y="68" class="text-mute mono" font-size="10">violet hierarchy + cyan-mist</text>
+      <text y="82" class="text-mute mono" font-size="10">+ status semantic tokens</text>
+      <text y="96" class="text-mute mono" font-size="10">+ motion natural easing</text>
+      <text y="110" class="text-mute mono" font-size="10">+ glow soft / strong / ring</text>
+      <text y="124" class="text-mute mono" font-size="10">+ reduced-motion ガード</text>
+      <text y="146" class="tag text-success">WCAG · AAA ほぼ通過</text>
+    </g>
+  </g>
+
+  <!-- side note: data flow -->
+  <g transform="translate(960, 460)">
+    <rect width="200" height="170" rx="14" fill="rgba(26,18,40,0.5)" stroke="#2A2038"/>
+    <g transform="translate(16, 22)">
+      <text class="tag text-ink">DATA FLOW</text>
+      <text y="22" class="display text" font-size="20">Shared Firestore</text>
+      <line x1="0" y1="32" x2="170" y2="32" class="divider"/>
+      <text y="50" class="text" font-size="11">bars / users / sales</text>
+      <text y="64" class="text-mute mono" font-size="10">→ nomishugy primary</text>
+      <text y="78" class="text-mute mono" font-size="10">→ yorulog 経由読み</text>
+      <text y="100" class="text" font-size="11">crm_*</text>
+      <text y="114" class="text-mute mono" font-size="10">→ yorulog 独自</text>
+      <text y="138" class="tag text-faint">同一 UID で繋がる</text>
+    </g>
+  </g>
+
+  <!-- footer -->
+  <g transform="translate(40, 880)">
+    <line x1="0" y1="-10" x2="1120" y2="-10" class="divider"/>
+    <text class="mono text-faint" font-size="10" letter-spacing="0.06em">
+      © 2026 NOXA · egshugy · 株式会社えぐしゅぎ（法人準備中） · noxa-delta.vercel.app
+    </text>
+  </g>
+
+</svg>

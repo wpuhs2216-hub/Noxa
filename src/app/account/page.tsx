@@ -20,7 +20,7 @@ const SERVICES = [
     name: 'yorulog',
     tag: '夜職売上 CRM',
     url: 'https://yorulog.vercel.app',
-    tint: '#7C3AED',
+    tint: '#8B5CF6',
     status: '営業中',
     statusColor: '#7BE8A1',
   },
@@ -28,7 +28,7 @@ const SERVICES = [
     name: 'nomishugy',
     tag: '大阪バーポータル',
     url: 'https://nomishugy.vercel.app',
-    tint: '#A78BFA',
+    tint: '#B89CFB',
     status: 'アクティブ',
     statusColor: '#7BE8A1',
   },
@@ -38,7 +38,7 @@ const SERVICES = [
     url: '/community',
     tint: '#C4384A',
     status: '近日公開',
-    statusColor: '#9C92AB',
+    statusColor: '#A89FBE',
     soon: true,
   },
 ];
@@ -95,7 +95,7 @@ function AccountDashboard({ user }: { user: User }) {
         <div
           className="relative overflow-hidden"
           style={{
-            background: 'linear-gradient(135deg, #1A1424 0%, #221B2E 100%)',
+            background: 'linear-gradient(135deg, #1A1228 0%, #221830 100%)',
             border: '1px solid var(--noxa-border)',
             borderRadius: 'var(--noxa-radius-lg)',
             padding: 28,
@@ -106,7 +106,7 @@ function AccountDashboard({ user }: { user: User }) {
             style={{
               position: 'absolute', top: -60, right: -60,
               width: 240, height: 240,
-              background: 'radial-gradient(circle, rgba(124, 58, 237, 0.22) 0%, transparent 60%)',
+              background: 'radial-gradient(circle, rgba(139, 92, 246, 0.22) 0%, transparent 60%)',
             }}
           />
           <div className="relative">
@@ -126,7 +126,7 @@ function AccountDashboard({ user }: { user: User }) {
                 <span
                   style={{
                     padding: '3px 9px',
-                    background: 'rgba(167, 139, 250, 0.22)',
+                    background: 'rgba(184, 156, 251, 0.22)',
                     color: 'var(--noxa-accent-primary-faint)',
                     borderRadius: 9999,
                     fontSize: 11,
@@ -195,7 +195,7 @@ function AccountDashboard({ user }: { user: User }) {
               style={{
                 width: `${usagePct}%`,
                 height: '100%',
-                background: 'linear-gradient(90deg, #7C3AED 0%, #A78BFA 100%)',
+                background: 'linear-gradient(90deg, #8B5CF6 0%, #B89CFB 100%)',
                 transition: 'width var(--noxa-duration-slow) var(--noxa-ease-standard)',
               }}
             />

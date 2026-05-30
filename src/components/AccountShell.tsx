@@ -14,8 +14,8 @@ const NAV_ACCOUNT: { label: string; href: string; icon: string }[] = [
 ];
 
 const NAV_SERVICES: { label: string; href: string; tint: string; soon?: boolean }[] = [
-  { label: 'yorulog',   href: 'https://yorulog.vercel.app',   tint: '#7C3AED' },
-  { label: 'nomishugy', href: 'https://nomishugy.vercel.app', tint: '#A78BFA' },
+  { label: 'yorulog',   href: 'https://yorulog.vercel.app',   tint: '#8B5CF6' },
+  { label: 'nomishugy', href: 'https://nomishugy.vercel.app', tint: '#B89CFB' },
   { label: 'community', href: '/community',                   tint: '#C4384A', soon: true },
 ];
 
@@ -61,7 +61,7 @@ export function AccountShell({ user, children }: { user: User; children: React.R
                   display: 'flex', alignItems: 'center', gap: 10,
                   padding: '8px 10px',
                   borderRadius: 8,
-                  background: active ? 'rgba(124, 58, 237, 0.12)' : 'transparent',
+                  background: active ? 'rgba(139, 92, 246, 0.12)' : 'transparent',
                   color: active ? 'var(--noxa-text-primary)' : 'var(--noxa-text-muted)',
                   fontSize: 13,
                   fontWeight: active ? 500 : 400,
@@ -140,7 +140,7 @@ export function AccountShell({ user, children }: { user: User; children: React.R
           <div
             style={{
               width: 32, height: 32, borderRadius: 16,
-              background: 'linear-gradient(135deg, #7C3AED 0%, #C4384A 100%)',
+              background: 'linear-gradient(135deg, #8B5CF6 0%, #C4384A 100%)',
               display: 'flex', alignItems: 'center', justifyContent: 'center',
               color: '#fff',
               fontFamily: 'var(--noxa-font-display-en)',

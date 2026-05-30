@@ -57,7 +57,7 @@ function LoginForm() {
         className="hidden lg:flex flex-1 relative overflow-hidden flex-col justify-between"
         style={{
           borderRight: '1px solid var(--noxa-border)',
-          background: 'linear-gradient(160deg, #14101C 0%, #0B0710 100%)',
+          background: 'linear-gradient(160deg, #110A1C 0%, #07050D 100%)',
           padding: 48,
         }}
       >
@@ -66,7 +66,7 @@ function LoginForm() {
           style={{
             position: 'absolute', top: '20%', left: '10%',
             width: 400, height: 400,
-            background: 'radial-gradient(circle, rgba(124, 58, 237, 0.18) 0%, transparent 60%)',
+            background: 'radial-gradient(circle, rgba(139, 92, 246, 0.18) 0%, transparent 60%)',
           }}
         />
         <div
@@ -74,7 +74,7 @@ function LoginForm() {
           style={{
             position: 'absolute', bottom: '10%', right: '15%',
             width: 280, height: 280,
-            background: 'radial-gradient(circle, rgba(212, 178, 122, 0.10) 0%, transparent 70%)',
+            background: 'radial-gradient(circle, rgba(192, 132, 252, 0.10) 0%, transparent 70%)',
           }}
         />
 
@@ -218,7 +218,7 @@ function LoginForm() {
           <span
             style={{
               width: 18, height: 18, borderRadius: 4,
-              background: '#fff', color: '#0B0710',
+              background: '#fff', color: '#07050D',
               display: 'inline-flex', alignItems: 'center', justifyContent: 'center',
               fontFamily: 'var(--noxa-font-display-en)', fontSize: 13, fontWeight: 600,
             }}

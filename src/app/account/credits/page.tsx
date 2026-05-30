@@ -15,8 +15,8 @@ interface LedgerEntry {
 }
 
 const SERVICE_TINT: Record<string, string> = {
-  yorulog: '#7C3AED',
-  nomishugy: '#A78BFA',
+  yorulog: '#8B5CF6',
+  nomishugy: '#B89CFB',
   community: '#C4384A',
 };
 

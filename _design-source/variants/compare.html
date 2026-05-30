@@ -1,0 +1,201 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8" />
+<title>NOXA Design — 3 案 静的比較</title>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500&family=JetBrains+Mono:wght@400;500&family=Geist:wght@400;500;600&display=swap" />
+<style>
+  html, body { margin: 0; padding: 0; background: #f0eee9; font-family: 'Geist', system-ui, sans-serif; color: #2a251f; }
+  * { box-sizing: border-box; }
+
+  .head { padding: 32px 32px 16px; max-width: 1640px; margin: 0 auto; }
+  .head h1 { font-family: 'Cormorant Garamond', serif; font-weight: 500; font-size: 36px; margin: 0 0 6px; letter-spacing: -0.01em; }
+  .head .sub { color: rgba(60,50,40,0.7); font-size: 14px; margin: 0 0 16px; max-width: 920px; line-height: 1.6; }
+  .head .meta { display: flex; gap: 16px; flex-wrap: wrap; font-family: 'JetBrains Mono', monospace; font-size: 11px; color: rgba(60,50,40,0.6); letter-spacing: 0.04em; }
+
+  .legend { padding: 0 32px 24px; max-width: 1640px; margin: 0 auto; display: flex; gap: 20px; flex-wrap: wrap; font-size: 12px; color: rgba(60,50,40,0.7); }
+  .legend .item { display: inline-flex; align-items: center; gap: 6px; }
+  .legend .dot { width: 10px; height: 10px; border-radius: 5px; }
+
+  .grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; padding: 0 32px 64px; max-width: 1640px; margin: 0 auto; }
+
+  .panel { background: #fff; border-radius: 8px; box-shadow: 0 1px 3px rgba(0,0,0,.08), 0 4px 16px rgba(0,0,0,.06); overflow: hidden; display: flex; flex-direction: column; }
+  .panel-head { padding: 16px 20px 14px; border-bottom: 1px solid rgba(0,0,0,.08); }
+  .panel-head .tag { font-family: 'JetBrains Mono', monospace; font-size: 10px; letter-spacing: 0.16em; text-transform: uppercase; }
+  .panel-head h2 { font-family: 'Cormorant Garamond', serif; font-weight: 500; font-size: 26px; margin: 6px 0 4px; letter-spacing: -0.01em; }
+  .panel-head p { font-size: 12px; color: rgba(60,50,40,0.65); margin: 0; line-height: 1.55; }
+
+  .shot { width: 100%; display: block; }
+  .panel-shot { background: #0B0710; border-bottom: 1px solid rgba(0,0,0,.06); }
+  .panel-shot img { width: 100%; display: block; }
+
+  .points { padding: 16px 20px; }
+  .points h3 { font-size: 11px; font-family: 'JetBrains Mono', monospace; letter-spacing: 0.16em; text-transform: uppercase; color: rgba(60,50,40,0.55); margin: 0 0 8px; }
+  .points ul { margin: 0 0 14px; padding-left: 18px; font-size: 13px; line-height: 1.65; color: #29251f; }
+  .points ul li { margin-bottom: 4px; }
+
+  .panel-foot { padding: 12px 20px; border-top: 1px solid rgba(0,0,0,.08); font-family: 'JetBrains Mono', monospace; font-size: 11px; color: rgba(60,50,40,0.65); display: flex; justify-content: space-between; gap: 8px; align-items: center; }
+  .panel-foot a { color: #7C3AED; text-decoration: none; }
+  .panel-foot a:hover { text-decoration: underline; }
+
+  /* compare table */
+  .table-wrap { padding: 0 32px 64px; max-width: 1640px; margin: 0 auto; }
+  .table-wrap h2 { font-family: 'Cormorant Garamond', serif; font-weight: 500; font-size: 28px; margin: 0 0 16px; letter-spacing: -0.01em; }
+  table.cmp { width: 100%; border-collapse: collapse; background: #fff; border-radius: 8px; overflow: hidden; box-shadow: 0 1px 3px rgba(0,0,0,.08); font-size: 13px; }
+  table.cmp th, table.cmp td { padding: 12px 16px; text-align: left; border-bottom: 1px solid rgba(0,0,0,.06); }
+  table.cmp th { background: rgba(60,50,40,0.04); font-weight: 600; color: #29251f; font-size: 12px; letter-spacing: 0.04em; }
+  table.cmp td.attr { font-weight: 600; color: #29251f; width: 22%; }
+  table.cmp td.good { color: #1f7a4e; font-weight: 500; }
+  table.cmp td.ok { color: #29251f; }
+  table.cmp td.weak { color: #c4654a; font-weight: 500; }
+
+  .note { padding: 16px 32px 48px; max-width: 1640px; margin: 0 auto; color: rgba(60,50,40,0.65); font-size: 12px; line-height: 1.65; }
+</style>
+</head>
+<body>
+
+<div class="head">
+  <h1>NOXA — 3 バリエーション 静的比較</h1>
+  <p class="sub">各案の LP + Login + Dashboard をフルページで縦に並べたスクリーンショット。<strong>※ v1（現状）はキャンバス UI のため静的サムネに含まれません。</strong>フル表示リンクから個別に確認してください。</p>
+  <div class="meta">
+    <span>viewport: 1280×1100</span>
+    <span>shot: full-page PNG</span>
+    <span>updated: 2026-05-30</span>
+  </div>
+</div>
+
+<div class="legend">
+  <span class="item"><span class="dot" style="background:#7C3AED"></span> violet primary</span>
+  <span class="item"><span class="dot" style="background:#8B5CF6"></span> violet bright (C)</span>
+  <span class="item"><span class="dot" style="background:#C4384A"></span> wine (A の yorulog, dest)</span>
+  <span class="item"><span class="dot" style="background:#D4B27A"></span> gold (A 2nd accent)</span>
+  <span class="item"><span class="dot" style="background:#67E8F9"></span> cyan-mist (C live)</span>
+  <span class="item"><span class="dot" style="background:#EDE5D7"></span> bone (B)</span>
+</div>
+
+<div class="grid">
+
+  <div class="panel">
+    <div class="panel-head">
+      <div class="tag" style="color:#C4384A">A · WARMER NIGHTFALL</div>
+      <h2>温度感を上げる</h2>
+      <p>violet ヒエラルキー + <strong>gold</strong> 2nd accent / yorulog を <strong>wine</strong> に独立 / 暖色寄りの背景</p>
+    </div>
+    <div class="panel-shot"><img class="shot" src="shots/variant-a.png" alt="Variant A — Warmer Nightfall full-page screenshot" /></div>
+    <div class="points">
+      <h3>What changed</h3>
+      <ul>
+        <li>bg-base <code>#0B0710</code> → <code>#100A0E</code>（青み減）</li>
+        <li>gold <code>#D4B27A</code> を 2nd accent に</li>
+        <li>yorulog tint: violet → <strong>wine</strong></li>
+        <li>community tint: wine → gold</li>
+        <li>divider: violet hairline → gold hairline</li>
+        <li>CTA: violet → gold-deep のグラデ</li>
+      </ul>
+      <h3>狙い / 想定ターゲット</h3>
+      <ul>
+        <li>ブランド識別性の懸念を直接解決</li>
+        <li>ラグジュアリーバーオーナー、大人客</li>
+      </ul>
+    </div>
+    <div class="panel-foot">
+      <span>~760 KB · 1280×3400</span>
+      <a href="warmer-nightfall.html" target="_blank">フル表示 ↗</a>
+    </div>
+  </div>
+
+  <div class="panel">
+    <div class="panel-head">
+      <div class="tag" style="color:#7C3AED">B · EDITORIAL MINIMAL</div>
+      <h2>雑誌見開きに振る</h2>
+      <p>余白 2 倍 / Cormorant Italic <strong>140px</strong> / グラデ完全撤廃 / 縦長レイアウト</p>
+    </div>
+    <div class="panel-shot"><img class="shot" src="shots/variant-b.png" alt="Variant B — Editorial Minimal full-page screenshot" /></div>
+    <div class="points">
+      <h3>What changed</h3>
+      <ul>
+        <li>bg-base さらに deep: <code>#080608</code></li>
+        <li>violet 3 段階のみ + wine + <strong>bone white</strong> <code>#EDE5D7</code></li>
+        <li>グラデ・radial glow を全撤廃</li>
+        <li>LP hero: 140px Italic Light を 2 行展開</li>
+        <li>padding 96px → 160px、余白拡大</li>
+        <li>「3 PRODUCTS」を № 01 形式の誌面番号に</li>
+        <li>すべての button が radius 0、letter-spacing で uppercase</li>
+      </ul>
+      <h3>狙い / 想定ターゲット</h3>
+      <ul>
+        <li>ハイブランド誌の表紙のような佇まい</li>
+        <li>ラグジュアリーバー、ハイクラス店舗、大人客</li>
+      </ul>
+    </div>
+    <div class="panel-foot">
+      <span>~300 KB · 1280×3000</span>
+      <a href="editorial-minimal.html" target="_blank">フル表示 ↗</a>
+    </div>
+  </div>
+
+  <div class="panel">
+    <div class="panel-head">
+      <div class="tag" style="color:#8B5CF6">C · TACTILE GLOW</div>
+      <h2>控えめのネオン許容</h2>
+      <p>neon glow を CTA/focus/live data 限定で解禁 / <strong>cyan-mist</strong> でライブ表示 / subtle noise texture</p>
+    </div>
+    <div class="panel-shot"><img class="shot" src="shots/variant-c.png" alt="Variant C — Tactile Glow full-page screenshot" /></div>
+    <div class="points">
+      <h3>What changed</h3>
+      <ul>
+        <li>bg-base さらに deep: <code>#07050D</code></li>
+        <li>violet <code>#7C3AED</code> → <code>#8B5CF6</code>（明度 +5）</li>
+        <li>neon-purple <code>#C084FC</code> を glow 専用に</li>
+        <li>cyan-mist <code>#67E8F9</code> をライブデータ専用に（売上 ¥84,200 が発光）</li>
+        <li>全 surface に subtle SVG noise texture</li>
+        <li>CTA に pulse-glow 3.2s ease-in-out のアニメーション</li>
+        <li>input focus glow を強化</li>
+      </ul>
+      <h3>狙い / 想定ターゲット</h3>
+      <ul>
+        <li>v1 で禁止だった neon を限定解禁してモーション体感を追加</li>
+        <li>20 代前半キャスト、テック × 妖艶を求める層</li>
+      </ul>
+    </div>
+    <div class="panel-foot">
+      <span>~1.3 MB · 1280×3400</span>
+      <a href="tactile-glow.html" target="_blank">フル表示 ↗</a>
+    </div>
+  </div>
+
+</div>
+
+<div class="table-wrap">
+  <h2>主要属性 比較</h2>
+  <table class="cmp">
+    <thead>
+      <tr><th>属性</th><th>A. Warmer</th><th>B. Editorial</th><th>C. Glow</th></tr>
+    </thead>
+    <tbody>
+      <tr><td class="attr">ブランド識別性</td><td class="good">◎ yorulog wine で独立</td><td class="ok">○</td><td class="ok">○</td></tr>
+      <tr><td class="attr">温度感</td><td>温かい・贅沢</td><td>凛冽・冷たい</td><td>妖艶・電子的</td></tr>
+      <tr><td class="attr">色数</td><td>violet + wine + gold</td><td>violet + wine + bone</td><td>violet + wine + cyan-mist</td></tr>
+      <tr><td class="attr">グラデ使用</td><td>中（CTA, hero）</td><td class="good">なし</td><td class="weak">多用（glow）</td></tr>
+      <tr><td class="attr">タイポ大胆度</td><td>並</td><td class="good">◎ 140px Italic</td><td>並</td></tr>
+      <tr><td class="attr">余白</td><td>標準</td><td class="good">1.5〜2 倍</td><td>標準</td></tr>
+      <tr><td class="attr">モーション</td><td>静的</td><td>静的</td><td class="good">pulse-glow あり</td></tr>
+      <tr><td class="attr">想定主ターゲット</td><td>バーオーナー・大人客</td><td>ラグジュアリー大人</td><td>20 代前半キャスト</td></tr>
+      <tr><td class="attr">yorulog 適合</td><td class="good">○</td><td class="weak">△</td><td class="good">◎</td></tr>
+      <tr><td class="attr">nomishugy 適合</td><td class="good">○</td><td class="weak">△</td><td class="good">○</td></tr>
+      <tr><td class="attr">ブランド原則一貫性</td><td class="good">○</td><td class="good">◎</td><td class="weak">△ neon 解禁</td></tr>
+      <tr><td class="attr">実装コスト（v1 から）</td><td class="good">低</td><td>中（レイアウト変更）</td><td>中（glow token 追加）</td></tr>
+    </tbody>
+  </table>
+</div>
+
+<div class="note">
+  <strong>使い方：</strong>各列の画像を縦スクロールで見ると LP → Login → Dashboard の流れを確認できます。気になった案は「フル表示 ↗」で個別 HTML を新タブで開いてください（C は CTA がアニメーションしているのでフル表示推奨）。<br>
+  <strong>v1 現状版は別構造：</strong>パン/ズーム可能な React キャンバスで動くため、静的サムネには含めていません。<code>../project/NOXA Design System.html</code> を Launch preview か <code>open</code> でフル表示してください。<br>
+  <strong>次のアクション：</strong>進める方向を 1 つ選ぶ → トークン更新（v1.1）→ 実装側 <code>src/app/globals.css</code> と <code>_design-source/project/colors_and_type.css</code> を同期。
+</div>
+
+</body>
+</html>
